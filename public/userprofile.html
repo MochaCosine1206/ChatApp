@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title>Profile Entry</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.7/lumen/bootstrap.min.css">
+  <link href="stylesheets/style.css" rel="stylesheet">
+</head>
+
+<body>
+  <nav class="navbar navbar-default">
+    <div class="container-fluid">
+      <div class="navbar-header">
+        <a class="navbar-brand" href="/logout">
+          Logout
+        </a>
+      </div>
+    </div>
+  </nav>
+  <div class="container">
+    <div class="row">
+      <div class="col-md-6 col-md-offset-3">
+        <h2>Welcome <span class="member-name"></span>.  Please fill out additional info below</h2>
+      </div>
+    </div>
+    <!-- need profile page div here   -->
+    <form id="userInfo">
+      <div class="row">
+        <div class="col-md-6">
+      <div class="form-group">
+        <label for="name">Name</label>
+        <input type="name" class="form-control" id="name" placeholder="Joe Blow">
+        <label for="userName">User Name</label>
+        <input type="username" class="form-control" id="userName" placeholder="i.e. moneygrabber53">
+        <label for="userAboutMe">About Me</label>
+        <textarea class="form-control" id="userAboutMe" rows="3" placeholder="Write a few words about yourself here..."></textarea>
+        <br>
+        <button type="button" class="btn btn-primary">Submit</button>
+      </div>
+    </div>
+    </form>
+    <div class="col-md-6">
+      <div>
+        <p>Your Random Avatar Image</p>
+        <img class="img-thumbnail" id="avatarImg">
+
+      </div>
+
+    </div>
+  </div>
+
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+        <script type="text/javascript" src="js/members.js"></script>
+        <script type="text/javascript" src="js/userprofile.js"></script>
+
+</body>
+
+</html>
