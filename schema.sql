@@ -1,0 +1,1 @@
+CREATE DB chatapp;
