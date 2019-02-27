@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Chat Window</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css"
+        integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link href="stylesheets/style.css" rel="stylesheet">
+</head>
+
+<body>
+    <nav class="navbar navbar-default navbar-light shadow-sm" style="background-color: #9f39fd;">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <a class="navbar-brand text-light" href="/logout">
+                    Logout
+                </a>
+            </div>
+        </div>
+    </nav>
+    <div class="row " id="chatRow">
+        <div class="col-md-3 border-right">
+            <div class="container-fluid">
+                <p>Left Pane</p>
+                <span><button type="button" class="btn btn-info mr-3 shadow-sm rounded-circle"><i class="far fa-comments"></i></button>Start a
+                    Chat</span>
+            </div>
+        </div>
+        <div class="col-md-9">
+            Right Pane
+            <div>search bar</div>
+            <input class="form-control form-control-lg" type="text" placeholder="Search Contacts">
+            <div>contacts</div>
+        </div>
+    </div>
+
+
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <!-- <script type="text/javascript" src="js/members.js"></script> -->
+
+</body>
+
+</html>
