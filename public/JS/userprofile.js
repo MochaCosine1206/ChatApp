@@ -1,16 +1,16 @@
 
 $(document).ready(function () {
 
-
+    const profileForm = $("#userInfo")
     const nameInput = $("#name");
     const usernameInput = $("#userName");
-    const userAbout = $("#userAboutMe");
+    const userAbout = $("textarea#userAboutMe");
     const userAvatar = $("#avatarImg");
     let seed = Math.floor(Math.random() * 5001);
     let avatarURL = "https://avatars.dicebear.com/v2/jdenticon/:" + seed + ".svg"
 
     //use custom avatar image for new profile
-    
+
     // This file just does a GET request to figure out which user is logged in
     // and updates the HTML on the page
     $.get("/api/user_data").then(function (data) {
@@ -19,36 +19,47 @@ $(document).ready(function () {
 
     userAvatar.attr("src", avatarURL)
 
-  
-
-    $(document).on("submit", "#userInfo", handleProfileFormSubmit);
 
 
-    function handleProfileFormSubmit(event) {
+    profileForm.on("submit", function (event) {
         event.preventDefault();
-        // Don't do anything if the fields haven't been filled out
-        if (!nameInput.val().trim().trim()) {
-            return;
-        }
+        console.log("You pressed the Submit Button");
+        console.log("Name: " + nameInput + " username: " + userName + " avatarURL: " + avatarURL + " About Me: " + userAbout)
 
-        if (!usernameInput.val().trim().trim()) {
-            return;
-        }
+        console.log(JSON.stringify(userAbout))
 
-        if (!userAbout.val().trim().trim()) {
-            return;
-        }
-        // Calling the updateProfile function and passing in the value of the name input
-        updateProfile({
+        let profileData = {
             name: nameInput.val().trim(),
             userName: usernameInput.val().trim(),
             avatar_seed: avatarURL,
-        });
-    }
+            about_me: userAbout.val()
+        }
 
-    // A function for creating a user Profile.
-    function updateProfile(profileData) {
-        $.post("/api/userProfiles", profileData);
-    }
+        if (!profileData.name || !profileData.userName) {
+            return;
+        }
 
+        addUserProfile(profileData.name, profileData.userName, profileData.avatar_seed, profileData.about_me);
+
+        nameInput.val("");
+        usernameInput.val("");
+        userAbout.val("");
+
+        function addUserProfile(name, userName, avatar_seed, about_me) {
+            $.post("api/userProfiles", {
+            name: name,
+            userName: userName,
+            avatar_seed: avatar_seed,
+            about_me: about_me
+            }).then(function(data) {
+                window.location.replace(data);
+            }).catch(handleLoginErr);
+        }
+
+    });
+
+    function handleLoginErr(err) {
+        $("#alert .msg").text(err.responseJSON);
+        $("#alert").fadeIn(500);
+      }
 });

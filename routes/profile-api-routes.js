@@ -10,9 +10,10 @@ module.exports = function(app) {
       db.UserProfile.create({
         name: req.body.name,
         userName: req.body.userName,
-        aboutMe: req.body.aboutMe,
+        avatar_seed: req.body.avatar_seed,
+        aboutMe: req.body.about_me,
       }).then(function() {
-        res.redirect("/api/addContacts");
+        res.json("/chats");
       }).catch(function(err) {
         console.log(err);
         res.json(err);
@@ -32,9 +33,10 @@ module.exports = function(app) {
         // Otherwise send back the user's email and id
         // Sending back a password, even a hashed password, isn't a good idea
         res.json({
-            name: req.body.name,
-            userName: req.body.userName,
-            aboutMe: req.body.aboutMe,
+          name: req.body.name,
+          userName: req.body.userName,
+          avatar_seed: req.body.avatar_seed,
+          aboutMe: req.body.about_me,
         });
       }
     });
