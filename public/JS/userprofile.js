@@ -1,6 +1,11 @@
 
 $(document).ready(function () {
 
+    var socket = io();
+    socket.on('connect', function(){
+      console.log("In profile page");
+    })
+
     const profileForm = $("#userInfo")
     const nameInput = $("#name");
     const usernameInput = $("#userName");

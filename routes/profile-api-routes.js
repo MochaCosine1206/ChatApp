@@ -1,7 +1,7 @@
 var db = require("../models");
-;
 
-module.exports = function(app) {
+
+module.exports = function(app, io) {
 
     
 
