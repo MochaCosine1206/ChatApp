@@ -12,13 +12,22 @@ form.login {
   height:100vh;
 }
 
-#signup-submit:disabled {
-  color: red;
+#password-input:invalid {
+  border: solid red; 
 }
 
-#signup-submit:enabled {
-  color: lawngreen;
+#password-input:valid {
+  border: solid lawngreen; 
 }
+
+#email-input:invalid {
+  border: solid red; 
+}
+
+#email-input:valid {
+  border: solid lawngreen; 
+}
+
 
 /* Split the screen in half */
 .split {
