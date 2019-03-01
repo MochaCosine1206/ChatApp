@@ -40,4 +40,8 @@ module.exports = function(app) {
     res.sendFile(path.join(__dirname, "../public/chats.html"));
   });
 
+  app.get("/contacts", function(req, res) {
+    res.sendFile(path.join(__dirname, "../public/contacts.html"));
+  });
+
 };
