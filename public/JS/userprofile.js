@@ -1,4 +1,4 @@
-// import io from 'socket.io-client';
+
 
 $(document).ready(function () {
     const profileForm = $("#userInfo")
@@ -6,11 +6,15 @@ $(document).ready(function () {
     const usernameInput = $("#userName");
     const userAbout = $("textarea#userAboutMe");
     const userAvatar = $("#avatarImg");
+    const ioTestDev = $('#ioTestDev');
     let seed = Math.floor(Math.random() * 5001);
     let avatarURL = "https://avatars.dicebear.com/v2/jdenticon/:" + seed + ".svg"
+    let socket = io.connect();
 
 
-    
+
+
+
 
     //use custom avatar image for new profile
 
@@ -22,10 +26,20 @@ $(document).ready(function () {
 
     userAvatar.attr("src", avatarURL)
 
+    //below is socket demo for future reference
+
+    // nameInput.keyup(function(){
+    //     socket.emit('send profile', nameInput.val());
+    //     socket.on('return name', function(data){
+    //         ioTestDev.text(data.msg);
+    //        })
+    // })
+
 
 
     profileForm.on("submit", function (event) {
         event.preventDefault();
+        
         console.log("You pressed the Submit Button");
         console.log("Name: " + nameInput + " username: " + userName + " avatarURL: " + avatarURL + " About Me: " + userAbout)
 
@@ -65,8 +79,13 @@ $(document).ready(function () {
         });
     });
 
+   
+
     function handleLoginErr(err) {
         $("#alert .msg").text(err.responseJSON);
         $("#alert").fadeIn(500);
       }
+
+        
+
 });

@@ -8,7 +8,7 @@ form.login {
   width: 200px;
 }
 
-#chatRow, #leftpane, #rightpane {
+#chatRow, #leftpane, #rightpane #contactsrightpane {
   height:100vh;
 }
 

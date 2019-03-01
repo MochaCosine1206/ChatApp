@@ -10,6 +10,13 @@ module.exports = function (io) {
             connections.splice(connections.indexOf(socket), 1);
             console.log('Disconnected: %s sockets connected', connections.length);
         })
+        //interacting with userprofile.js demo
+        // socket.on('send profile', function(data){
+        //     console.log(data);
+        //     io.sockets.emit('return name', {msg: data});
+        // })
     })
+
+        
 
 }
