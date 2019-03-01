@@ -9,7 +9,7 @@ $(document).ready(function () {
     const ioTestDev = $('#ioTestDev');
     let seed = Math.floor(Math.random() * 5001);
     let avatarURL = "https://avatars.dicebear.com/v2/jdenticon/:" + seed + ".svg"
-    let socket = io.connect();
+    // let socket = io.connect();
 
 
 
@@ -76,8 +76,24 @@ $(document).ready(function () {
         
         $.get("api/userProfiles").then(function (data) {
             console.log(data);
+            console.log(req.body);
+            if (!req.user) {
+                // The user is not logged in, send back an empty object
+                res.json({});
+              }
+              else {
+                // Otherwise send back the user's email and id
+                // Sending back a password, even a hashed password, isn't a good idea
+                res.json({
+                    name: req.user.name,
+                    userName: req.user.userName,
+                    avatar_seed: req.user.avatar_seed,
+                    about_me: req.user.about_me
+                });
+              }
+            });
         });
-    });
+
 
    
 
