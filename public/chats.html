@@ -29,20 +29,18 @@
                 <span><button type="button" class="btn mr-3 text-light shadow-sm rounded-circle"
                         style="background-color: #9f39fd;"><i class="far fa-comments"></i></button>Start a
                     Chat</span>
-                    <hr>
-                    <div>Chat List Placeholder</div>
+                <hr>
+                <div>Chat List Placeholder, populate contacts based on current user</div>
             </div>
         </div>
         <div class="col-md-9">
             <div class="container-fluid">
                 <p>Right Pane</p>
-                <div>search bar placeholder (Will be hidden until new chat button pressed then prepended to this pane)</div>
-                <input class="form-control form-control-lg" type="text" placeholder="Search Contacts">
-                <hr>
-                <div>contacts placeholder (only visible on search, to be prepended along with the search)</div>
-                <hr>
-                <div>Active Chat Placeholder</div>
+                <div>Chats here should be per active user, use jQuery to populate</div>
                 <div class="fixed-bottom">
+                    <div id="buttonSearchDiv" style="display: none;"></div>
+                    <div id="buttonSearchResults" style="display: none;"></div>
+                    <div id="buttonDiv" style="display: none;"></div>
                     <input class="form-control form-control-lg w-75 float-right" type="text" placeholder="Chat Input">
                 </div>
             </div>
