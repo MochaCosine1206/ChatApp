@@ -1,11 +1,6 @@
+// import io from 'socket.io-client';
 
 $(document).ready(function () {
-
-    var socket = io();
-    socket.on('connect', function(){
-      console.log("In profile page");
-    })
-
     const profileForm = $("#userInfo")
     const nameInput = $("#name");
     const usernameInput = $("#userName");
@@ -13,6 +8,9 @@ $(document).ready(function () {
     const userAvatar = $("#avatarImg");
     let seed = Math.floor(Math.random() * 5001);
     let avatarURL = "https://avatars.dicebear.com/v2/jdenticon/:" + seed + ".svg"
+
+
+    
 
     //use custom avatar image for new profile
 
@@ -61,6 +59,10 @@ $(document).ready(function () {
             }).catch(handleLoginErr);
         }
 
+        
+        $.get("api/userProfiles").then(function (data) {
+            console.log(data);
+        });
     });
 
     function handleLoginErr(err) {

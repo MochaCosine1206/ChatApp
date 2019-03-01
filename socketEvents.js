@@ -3,7 +3,7 @@ module.exports = function (io) {
     var connections = [];
     io.on('connection', function (socket) {
         connections.push(socket);
-        console.log('Connected: %s sockets connected', connections.length);
+        console.log('Connected: %s sockets connected, socketID: ' + socket.id, connections.length);
 
         //Disconnect
         socket.on('disconnect', function (data) {

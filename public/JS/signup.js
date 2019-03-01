@@ -1,9 +1,9 @@
 
 $(document).ready(function () {
-  var socket = io();
-  socket.on('connect', function(){
-    console.log("In sign-up");
-  })
+  // var socket = io();
+  // socket.on('connect', function(){
+  //   console.log("In sign-up");
+  // })
   // Getting references to our form and input
   var signUpForm = $("form.signup");
   var emailInput = $("input#email-input");
