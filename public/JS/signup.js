@@ -27,7 +27,13 @@ $(document).ready(function () {
   });
 
   // Make signup-submit button disabled on load
-  $('#signup-submit').prop('disabled', true);
+  if ($('#email-input').hasClass('valid') && $('#password-input').hasClass('valid')) {
+    $('#signup-submit').prop('disabled', false);
+  }
+  else {
+    $('#signup-submit').prop('disabled', true);
+  }
+
 
   //Function to listen for Email Form Data Validation on input
 $('#email-input').on('input', function () {
@@ -36,10 +42,12 @@ $('#email-input').on('input', function () {
     var is_email = re.test(input.val());
     if (is_email) {
         input.removeClass("invalid").addClass("valid");
+        $('#password-input').prop('disabled', false);
         $('#signup-submit').prop('disabled', true);
     }
     else {
         input.removeClass("valid").addClass("invalid");
+        $('#password-input').prop('disabled', true);
         $('#signup-submit').prop('disabled', true);
     }
 });
@@ -49,11 +57,11 @@ $('#password-input').on('input', function () {
     var re = /^[^-]{1}?[^\"\']*$/;
     var is_pass = re.test(input.val());
     if (is_pass) {
-      // input.removeClass("invalid").addClass("valid");
+      input.removeClass("invalid").addClass("valid");
       $('#signup-submit').prop('disabled', false);
     }
     else {
-      // input.removeClass("valid").addClass("invalid");
+      input.removeClass("valid").addClass("invalid");
       $('#signup-submit').prop('disabled', true);
     }
 });
