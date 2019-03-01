@@ -13,7 +13,7 @@ module.exports = function(app, io) {
         avatar_seed: req.body.avatar_seed,
         aboutMe: req.body.about_me,
       }).then(function() {
-        res.json("/chats");
+        res.json("/contacts");
       }).catch(function(err) {
         console.log(err);
         res.json(err);
