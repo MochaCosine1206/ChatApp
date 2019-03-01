@@ -26,16 +26,10 @@ $(document).ready(function () {
     passwordInput.val("");
   });
 
-  // Make signup-submit button disabled on load
-  if ($('#email-input').hasClass('valid') && $('#password-input').hasClass('valid')) {
-    $('#signup-submit').prop('disabled', false);
-  }
-  else {
-    $('#signup-submit').prop('disabled', true);
-  }
-
-
+  
   //Function to listen for Email Form Data Validation on input
+   $('#password-input').prop('disabled', true);
+   $('#signup-submit').prop('disabled', true);
 $('#email-input').on('input', function () {
     var input = $(this);
     var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
