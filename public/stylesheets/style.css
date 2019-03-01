@@ -12,3 +12,11 @@ form.login {
   height:100vh;
 }
 
+#signup-submit:disabled {
+  color: red;
+}
+
+#signup-submit:enabled {
+  color: lawngreen;
+}
+

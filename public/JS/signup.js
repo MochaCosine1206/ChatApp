@@ -26,6 +26,38 @@ $(document).ready(function () {
     passwordInput.val("");
   });
 
+  // Make signup-submit button disabled on load
+  $('#signup-submit').prop('disabled', true);
+
+  //Function to listen for Email Form Data Validation on input
+$('#email-input').on('input', function () {
+    var input = $(this);
+    var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    var is_email = re.test(input.val());
+    if (is_email) {
+        input.removeClass("invalid").addClass("valid");
+        $('#signup-submit').prop('disabled', true);
+    }
+    else {
+        input.removeClass("valid").addClass("invalid");
+        $('#signup-submit').prop('disabled', true);
+    }
+});
+
+$('#password-input').on('input', function () {
+    var input = $(this);
+    var re = /^[^-]{1}?[^\"\']*$/;
+    var is_pass = re.test(input.val());
+    if (is_pass) {
+      // input.removeClass("invalid").addClass("valid");
+      $('#signup-submit').prop('disabled', false);
+    }
+    else {
+      // input.removeClass("valid").addClass("invalid");
+      $('#signup-submit').prop('disabled', true);
+    }
+});
+
 
 
   // Does a post to the signup route. If successful, we are redirected to the members page
