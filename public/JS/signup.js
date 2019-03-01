@@ -42,9 +42,13 @@ $('#email-input').on('input', function () {
     var is_email = re.test(input.val());
     if (is_email) {
         input.removeClass("invalid").addClass("valid");
+        $('#password-input').prop('disabled', false);
+        $('#signup-submit').prop('disabled', true);
     }
     else {
         input.removeClass("valid").addClass("invalid");
+        $('#password-input').prop('disabled', true);
+        $('#signup-submit').prop('disabled', true);
     }
 });
 
