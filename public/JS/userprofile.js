@@ -12,7 +12,7 @@ $(document).ready(function () {
 
 
     // let avatarURL = "https://avatars.dicebear.com/v2/jdenticon/:" + seed + ".svg"
-    // let socket = io.connect();
+    let socket = io.connect('http://localhost:8080');
 
 
 
