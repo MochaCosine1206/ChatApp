@@ -1,6 +1,6 @@
 
 $(document).ready(function () {
-  // var socket = io();
+  let socket = io.connect('http://localhost:8080');
   // socket.on('connect', function(){
   //   console.log("In sign-up");
   // })
