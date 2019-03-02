@@ -8,7 +8,10 @@ $(document).ready(function () {
     const userAvatar = $("#avatarImg");
     // const ioTestDev = $('#ioTestDev');
     let seed = Math.floor(Math.random() * 5001);
-    let avatarURL = "https://avatars.dicebear.com/v2/jdenticon/:" + seed + ".svg"
+    let avatarURL ="https://avatars.dicebear.com/v2/avataaars/example.svg?options[top][]=shortHair"
+
+
+    // let avatarURL = "https://avatars.dicebear.com/v2/jdenticon/:" + seed + ".svg"
     // let socket = io.connect();
 
 
