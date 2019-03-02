@@ -8,7 +8,10 @@ $(document).ready(function () {
     const userAvatar = $("#avatarImg");
     // const ioTestDev = $('#ioTestDev');
     let seed = Math.floor(Math.random() * 5001);
-    let avatarURL = "https://avatars.dicebear.com/v2/jdenticon/:" + seed + ".svg"
+    let avatarURL ="https://avatars.dicebear.com/v2/avataaars/example.svg?options[top][]=shortHair"
+
+
+    // let avatarURL = "https://avatars.dicebear.com/v2/jdenticon/:" + seed + ".svg"
     // let socket = io.connect();
 
 
@@ -83,6 +86,58 @@ $(document).ready(function () {
         }
         
         });
+
+
+   
+
+    function handleLoginErr(err) {
+        $("#alert .msg").text(err.responseJSON);
+        $("#alert").fadeIn(500);
+      }
+
+    // Client-side validation
+      $('#userprofile-submit').prop('disabled', true);
+      $('#name').on('input', function () {
+        var input = $(this);
+        var re =/^[a-zA-Z][a-zA-Z ]+[a-zA-Z]$/;
+        var is_name = re.test(input.val());
+        if (is_name) {
+          input.removeClass("invalid").addClass("valid");
+          $('#userprofile-submit').prop('disabled', true);
+        }
+        else {
+          input.removeClass("valid").addClass("invalid");
+          $('#signup-submit').prop('disabled', true);
+        }
+    });
+
+    $('#userName').on('input', function () {
+        var input = $(this);
+        var re = /^[A-Za-z 0-9 (!?@#$%&)]{3,15}$/;
+        var is_userName = re.test(input.val());
+        if (is_userName) {
+          input.removeClass("invalid").addClass("valid");
+          $('#userprofile-submit').prop('disabled', true);
+        }
+        else {
+          input.removeClass("valid").addClass("invalid");
+          $('#userprofile-submit').prop('disabled', true);
+        }
+    });
+
+    $('#userAboutMe').on('input', function () {
+        var input = $(this);
+        var re = /^[ a-zA-Z0-9_][a-zA-Z0-9_ ]*[a-zA-Z0-9_]$/;
+        var is_about = re.test(input.val());
+        if (is_about) {
+          input.removeClass("invalid").addClass("valid");
+          $('#userprofile-submit').prop('disabled', false);
+        }
+        else {
+          input.removeClass("valid").addClass("invalid");
+          $('#userprofile-submit').prop('disabled', true);
+        }
+    });
 
         
 
