@@ -24,8 +24,9 @@ module.exports = function (sequelize, DataTypes) {
       type: DataTypes.STRING,
       allowNull: false,
     },
-    about_me: {
-      type: DataTypes.TEXT,
+    tagline: {
+      type: DataTypes.STRING,
+      allowNull: false
     },
   });
 
