@@ -28,6 +28,14 @@ form.login {
   border: solid lawngreen; 
 }
 
+#signup-background {
+  background: linear-gradient(blue, whitesmoke,rgb(76, 204, 239));
+  background-position: center center;
+	background-repeat:  no-repeat;
+	background-attachment: fixed;
+	background-size:  cover;
+}
+
 
 /* Split the screen in half */
 .split {
@@ -64,5 +72,11 @@ font-style: normal;
 font-size: 100px;
 
 color: yellow;
+}
+
+#signup-header {
+  font-family: flood-std, sans-serif;
+  color: yellow;
+  text-shadow: 1px 1px 1px black;
 }
 
