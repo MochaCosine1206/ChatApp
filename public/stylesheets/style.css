@@ -12,21 +12,6 @@ form.login {
   height:100vh;
 }
 
-#password-input:invalid {
-  border: solid red; 
-}
-
-#password-input:valid {
-  border: solid lawngreen; 
-}
-
-#email-input:invalid {
-  border: solid red; 
-}
-
-#email-input:valid {
-  border: solid lawngreen; 
-}
 
 
 /* Split the screen in half */
@@ -64,5 +49,23 @@ font-style: normal;
 font-size: 100px;
 
 color: yellow;
+}
+
+/* SIGN UP CSS */
+
+#password-input:invalid {
+  border: solid red; 
+}
+
+#password-input:valid {
+  border: solid lawngreen; 
+}
+
+#email-input:invalid {
+  border: solid red; 
+}
+
+#email-input:valid {
+  border: solid lawngreen; 
 }
 
