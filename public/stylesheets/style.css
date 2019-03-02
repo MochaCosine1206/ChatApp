@@ -52,6 +52,7 @@ form.login {
 .left {
   left: 0;
   background-color: #4cccef;
+ 
 }
 
 /* Control the right side */
@@ -60,6 +61,12 @@ form.login {
   background-color: white;
 }
 
+.centered {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  text-align: center;
+}
 
 
 h1 {
@@ -72,6 +79,69 @@ font-style: normal;
 font-size: 100px;
 
 color: yellow;
+
+text-align: center;
+
+text-shadow: 2px 2px black;
+}
+
+h2 {
+
+  font-family: de-walpergens-pica, sans-serif;
+
+  font-weight: 400;
+  
+  font-style: normal;
+
+font-size: 40px;
+
+
+
+
+
+
+}
+
+p {
+  font-family: de-walpergens-pica, sans-serif;
+
+  font-weight: 400;
+  
+  font-style: normal;
+  font-size: 20px;
+line-height: 100px;
+}
+
+li {
+  font-family: de-walpergens-pica, sans-serif;
+
+  font-weight: 400;
+  
+  font-style: normal;
+  font-size: 20px;
+
+  list-style: none;
+}
+
+
+ul li::before {
+  color: yellow ;
+  /* color of bullet or square */
+
+  content: "\2022"; 
+  /* Unicode of character to precede the list item */
+
+  font-size: 1em; 
+  /* em or %*/
+ 
+  padding-right: 1.1225em; 
+  /* use em*/
+
+  position: relative;
+  top: 0em; 
+  
+  /* use em or % */
+
 }
 
 #signup-header {
@@ -80,3 +150,11 @@ color: yellow;
   text-shadow: 1px 1px 1px black;
 }
 
+/* ul li::before {
+  content: "\2022";
+  color:yellow;
+  font-weight: bold;
+  display: inline-block; 
+  width: 1em;
+  margin-left: -1em;
+} */
