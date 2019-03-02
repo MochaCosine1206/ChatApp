@@ -96,18 +96,23 @@ $(document).ready(function () {
       }
 
     // Client-side validation
+      $('#nameInvalid').hide();
+      $('#userNameInvalid').hide();
+      $('#aboutInvalid').hide();
       $('#userprofile-submit').prop('disabled', true);
       $('#name').on('input', function () {
         var input = $(this);
-        var re =/^[a-zA-Z][a-zA-Z ]+[a-zA-Z]$/;
+        var re =/^[a-zA-Z][a-zA-Z ]+[a-zA-Z]{3,15}$/;
         var is_name = re.test(input.val());
         if (is_name) {
           input.removeClass("invalid").addClass("valid");
           $('#userprofile-submit').prop('disabled', true);
+          $('#nameInvalid').hide();
         }
         else {
           input.removeClass("valid").addClass("invalid");
-          $('#signup-submit').prop('disabled', true);
+          $('#userprofile-submit').prop('disabled', true);
+          $('#nameInvalid').show();
         }
     });
 
@@ -118,10 +123,12 @@ $(document).ready(function () {
         if (is_userName) {
           input.removeClass("invalid").addClass("valid");
           $('#userprofile-submit').prop('disabled', true);
+          $('#userNameInvalid').hide();
         }
         else {
           input.removeClass("valid").addClass("invalid");
           $('#userprofile-submit').prop('disabled', true);
+          $('#userNameInvalid').show();
         }
     });
 
@@ -132,10 +139,12 @@ $(document).ready(function () {
         if (is_about) {
           input.removeClass("invalid").addClass("valid");
           $('#userprofile-submit').prop('disabled', false);
+          $('#aboutInvalid').hide();
         }
         else {
           input.removeClass("valid").addClass("invalid");
           $('#userprofile-submit').prop('disabled', true);
+          $('#aboutInvalid').show();
         }
     });
 

@@ -33,10 +33,13 @@
         <div class="col-md-6">
       <div class="form-group">
         <label for="name">Name</label>
+        <span id="nameInvalid" style="color: red"> - Can't Begin Or End With A Space </span>
         <input type="name" class="form-control" id="name" placeholder="Joe Blow" required>
         <label for="userName">User Name</label>
+        <span id="userNameInvalid" style="color: red"> - Must Be 3-15 Characters Long </span>
         <input type="username" class="form-control" id="userName" placeholder="i.e. moneygrabber53" required>
         <label for="userAboutMe">About Me</label>
+        <span id="aboutInvalid" style="color: red"> - Must Be 7 Words </span>
         <input  type="userAboutMe" class="form-control" id="userAboutMe" placeholder="Write a few words about yourself here..." required>
         <br>
         <button id="userprofile-submit" type="submit" class="btn btn-primary">Submit</button>
