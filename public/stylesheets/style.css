@@ -8,9 +8,26 @@ form.login {
   width: 200px;
 }
 
-#chatRow {
+#chatRow, #leftpane, #rightpane #contactsrightpane {
   height:100vh;
 }
+
+#password-input:invalid {
+  border: solid red; 
+}
+
+#password-input:valid {
+  border: solid lawngreen; 
+}
+
+#email-input:invalid {
+  border: solid red; 
+}
+
+#email-input:valid {
+  border: solid lawngreen; 
+}
+
 
 /* Split the screen in half */
 .split {

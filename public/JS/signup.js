@@ -1,9 +1,9 @@
 
 $(document).ready(function () {
-  var socket = io();
-  socket.on('connect', function(){
-    console.log("In sign-up");
-  })
+  // var socket = io();
+  // socket.on('connect', function(){
+  //   console.log("In sign-up");
+  // })
   // Getting references to our form and input
   var signUpForm = $("form.signup");
   var emailInput = $("input#email-input");
@@ -25,6 +25,40 @@ $(document).ready(function () {
     emailInput.val("");
     passwordInput.val("");
   });
+
+  
+  //Function to listen for Email Form Data Validation on input
+   $('#password-input').prop('disabled', true);
+   $('#signup-submit').prop('disabled', true);
+$('#email-input').on('input', function () {
+    var input = $(this);
+    var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    var is_email = re.test(input.val());
+    if (is_email) {
+        input.removeClass("invalid").addClass("valid");
+        $('#password-input').prop('disabled', false);
+        $('#signup-submit').prop('disabled', true);
+    }
+    else {
+        input.removeClass("valid").addClass("invalid");
+        $('#password-input').prop('disabled', true);
+        $('#signup-submit').prop('disabled', true);
+    }
+});
+
+$('#password-input').on('input', function () {
+    var input = $(this);
+    var re = /^[^-]{1}?[^\"\']*$/;
+    var is_pass = re.test(input.val());
+    if (is_pass) {
+      input.removeClass("invalid").addClass("valid");
+      $('#signup-submit').prop('disabled', false);
+    }
+    else {
+      input.removeClass("valid").addClass("invalid");
+      $('#signup-submit').prop('disabled', true);
+    }
+});
 
 
 
