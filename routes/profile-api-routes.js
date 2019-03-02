@@ -7,7 +7,7 @@ module.exports = function(app, io) {
 
     app.post("/api/userProfiles", function(req, res) {
       db.UserProfile.create(req.body).then(function(data) {
-        res.redirect("/contacts");
+        res.json(data);
       });
     });
   

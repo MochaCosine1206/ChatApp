@@ -66,7 +66,13 @@ $(document).ready(function () {
             userName: userName,
             avatar_seed: avatar_seed,
             tagline: tagline
-            }).then(getProfileData);
+            }).then(function(data){
+
+                getProfileData();
+                window.location.href = "/contacts";
+
+            });
+
         }
 
 
@@ -77,14 +83,6 @@ $(document).ready(function () {
         }
         
         });
-
-
-   
-
-    function handleLoginErr(err) {
-        $("#alert .msg").text(err.responseJSON);
-        $("#alert").fadeIn(500);
-      }
 
         
 
