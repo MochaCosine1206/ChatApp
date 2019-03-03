@@ -6,13 +6,12 @@ $(document).ready(function () {
     const usernameInput = $("#userName");
     const userAbout = $("#userAboutMe");
     const userAvatar = $("#avatarImg");
-    // const ioTestDev = $('#ioTestDev');
     let seed = Math.floor(Math.random() * 5001);
-    let avatarURL ="https://avatars.dicebear.com/v2/avataaars/example.svg?options[top][]=shortHair"
+    let avatarURL ="https://avatars.dicebear.com/v2/avataaars/:" + seed + ".svg?options[top][]=shortHair"
 
 
     // let avatarURL = "https://avatars.dicebear.com/v2/jdenticon/:" + seed + ".svg"
-    let socket = io.connect('http://localhost:8080');
+
 
 
 
@@ -28,17 +27,6 @@ $(document).ready(function () {
     });
 
     userAvatar.attr("src", avatarURL)
-
-    //below is socket demo for future reference
-
-    // nameInput.keyup(function(){
-    //     socket.emit('send profile', nameInput.val());
-    //     socket.on('return name', function(data){
-    //         ioTestDev.text(data.msg);
-    //        })
-    // })
-
-
 
     profileForm.on("submit", function (event) {
         event.preventDefault();
@@ -72,7 +60,7 @@ $(document).ready(function () {
             }).then(function(data){
 
                 getProfileData();
-                window.location.href = "/contacts";
+                window.location.href = "/chats";
 
             });
 

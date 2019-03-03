@@ -1,5 +1,4 @@
-form.signup,
-form.login {
+form.signup, form.login {
   margin-top: 50px;
 }
 
@@ -8,36 +7,36 @@ form.login {
   width: 200px;
 }
 
-#chatRow, #leftpane, #rightpane #contactsrightpane {
-  height:100vh;
+#leftpane, #rightpane #contactsrightpane {
+  height: 100vh;
 }
 
 #password-input:invalid {
-  border: solid red; 
+  border: solid red;
 }
 
 #password-input:valid {
-  border: solid lawngreen; 
+  border: solid lawngreen;
 }
 
 #email-input:invalid {
-  border: solid red; 
+  border: solid red;
 }
 
 #email-input:valid {
-  border: solid lawngreen; 
+  border: solid lawngreen;
 }
 
 #signup-background {
-  background: linear-gradient(blue, whitesmoke,rgb(76, 204, 239));
+  background: linear-gradient(blue, whitesmoke, rgb(76, 204, 239));
   background-position: center center;
-	background-repeat:  no-repeat;
-	background-attachment: fixed;
-	background-size:  cover;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: cover;
 }
 
-
 /* Split the screen in half */
+
 .split {
   height: 100%;
   width: 50%;
@@ -49,13 +48,14 @@ form.login {
 }
 
 /* Control the left side */
+
 .left {
   left: 0;
   background-color: #4cccef;
- 
 }
 
 /* Control the right side */
+
 .right {
   right: 0;
   background-color: white;
@@ -68,80 +68,51 @@ form.login {
   text-align: center;
 }
 
-
 h1 {
   font-family: flood-std, sans-serif;
-
-font-weight: 400;
-
-font-style: normal;
-
-font-size: 100px;
-
-color: yellow;
-
-text-align: center;
-
-text-shadow: 2px 2px black;
+  font-weight: 400;
+  font-style: normal;
+  font-size: 100px;
+  color: yellow;
+  text-align: center;
+  text-shadow: 2px 2px black;
 }
 
 h2 {
-
   font-family: de-walpergens-pica, sans-serif;
-
   font-weight: 400;
-  
   font-style: normal;
-
-font-size: 40px;
-
-
-
-
-
-
+  font-size: 40px;
 }
 
 p {
   font-family: de-walpergens-pica, sans-serif;
-
   font-weight: 400;
-  
   font-style: normal;
   font-size: 20px;
-line-height: 100px;
+  line-height: 100px;
 }
 
 li {
   font-family: de-walpergens-pica, sans-serif;
-
   font-weight: 400;
-  
   font-style: normal;
   font-size: 20px;
-
   list-style: none;
 }
 
-
 ul li::before {
-  color: yellow ;
+  color: yellow;
   /* color of bullet or square */
-
-  content: "\2022"; 
+  content: "\2022";
   /* Unicode of character to precede the list item */
-
-  font-size: 1em; 
+  font-size: 1em;
   /* em or %*/
- 
-  padding-right: 1.1225em; 
+  padding-right: 1.1225em;
   /* use em*/
-
   position: relative;
-  top: 0em; 
-  
+  top: 0em;
   /* use em or % */
-
 }
 
 #signup-header {
@@ -158,3 +129,32 @@ ul li::before {
   width: 1em;
   margin-left: -1em;
 } */
+
+/* Below are Steven's do not touch!!! */
+
+#chatsearchH1 {
+  font-size: 36px;
+  text-align: left;
+  font-weight: 100;
+  font-style: normal;
+  color: black;
+  text-shadow: none;
+}
+
+.container-fluid {
+  width: 100%;
+  padding-right: 15px;
+  padding-left: 15px;
+  padding-top: 10px;
+  margin-right: auto;
+  margin-left: auto;
+}
+
+#contactsCard {
+  height: 400px;
+  overflow-y: scroll;
+}
+
+#chatRow { 
+  height: 100%;
+}

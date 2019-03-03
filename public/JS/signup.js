@@ -1,10 +1,6 @@
-
 $(document).ready(function () {
-  let socket = io.connect('http://localhost:8080');
-  // socket.on('connect', function(){
-  //   console.log("In sign-up");
-  // })
-  // Getting references to our form and input
+
+
   var signUpForm = $("form.signup");
   var emailInput = $("input#email-input");
   var passwordInput = $("input#password-input");

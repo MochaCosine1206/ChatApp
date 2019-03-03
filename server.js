@@ -22,6 +22,8 @@ var app = express();
 var http = require('http').Server(app);
 var io = require('socket.io')(http);
 
+io.attach(http)
+
 socketEvents(io);
 
 // Sets up the Express app to handle data parsing
@@ -44,12 +46,15 @@ app.use(passport.session());
 require("./routes/html-routes-api.js")(app);
 require("./routes/register-api-routes.js")(app);
 require("./routes/profile-api-routes.js")(app);
+require("./routes/contacts-api-routes.js")(app);
 
 
 // Syncing our sequelize models and then starting our Express app
 // =============================================================
-db.sequelize.sync({ force: true }).then(function () {
+db.sequelize.sync().then(function () {
   http.listen(PORT, function () {
     console.log("==> 🌎  Listening on port %s. Visit http://localhost:%s/ in your browser.", PORT, PORT);
   });
 });
+
+// { force: true }
