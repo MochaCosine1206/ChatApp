@@ -90,7 +90,7 @@ $(document).ready(function () {
       $('#userprofile-submit').prop('disabled', true);
       $('#name').on('input', function () {
         var input = $(this);
-        var re =/^[a-zA-Z][a-zA-Z ]+[a-zA-Z]{3,15}$/;
+        var re =/^[a-zA-Z][a-zA-Z ]+[a-zA-Z]$/;
         var is_name = re.test(input.val());
         if (is_name) {
           input.removeClass("invalid").addClass("valid");
@@ -106,7 +106,7 @@ $(document).ready(function () {
 
     $('#userName').on('input', function () {
         var input = $(this);
-        var re = /^[A-Za-z 0-9 (!?@#$%&)]{3,15}$/;
+        var re = /^[A-Za-z 0-9 (!?@#$%&_*)]{3,15}$/;
         var is_userName = re.test(input.val());
         if (is_userName) {
           input.removeClass("invalid").addClass("valid");
