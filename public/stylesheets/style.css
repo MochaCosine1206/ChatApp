@@ -62,20 +62,21 @@ form.signup, form.login {
 }
 
 .centered {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  text-align: center;
+  margin: 15px;
+  padding: 10px;
 }
 
 h1 {
+  position: relative;
   font-family: flood-std, sans-serif;
   font-weight: 400;
   font-style: normal;
-  font-size: 100px;
+  font-size: 139px;
   color: yellow;
   text-align: center;
   text-shadow: 2px 2px black;
+  left: 15px;
+  z-index: 999;
 }
 
 h2 {
@@ -141,6 +142,14 @@ ul li::before {
   text-shadow: none;
 }
 
+#leftpane {
+  background-color: #4cccef;
+}
+
+#rightpane {
+  height: 100vh;
+}
+
 .container-fluid {
   width: 100%;
   padding-right: 15px;
@@ -155,10 +164,16 @@ ul li::before {
   overflow-y: scroll;
 }
 
-#chatRow { 
+#chatRow {
   height: 100%;
 }
 
+#catfishLogo {
+  position: relative;
+  right: 40px;
+  top: 85px;
+  height: 460px;
+}
 
 #contactSelectButtons {
   margin: 5px;
