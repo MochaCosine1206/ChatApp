@@ -158,3 +158,13 @@ ul li::before {
 #chatRow { 
   height: 100%;
 }
+
+
+#contactSelectButtons {
+  margin: 5px;
+  height: 50px;
+}
+
+#chatSelectButton {
+  float: right
+}

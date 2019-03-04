@@ -19,10 +19,13 @@ $(document).ready(function () {
     let currentUser = "";
 
 
+
+    //retrieve user is from Users table
     $.get("/api/user_data").then(function (data) {
         currentUser = data.id
     });
 
+    //Clicking this button opens up the user selection pane
     $("#chatbutton").click(function () {
         chatStart.toggle();
     })
@@ -32,7 +35,7 @@ $(document).ready(function () {
 
 
 
-
+    //retreive user profile information
     $.get("api/userProfiles").then(function (data) {
         console.log(data);
         contacts = data
@@ -40,30 +43,34 @@ $(document).ready(function () {
         if (!contacts || !contacts.length) {
             contactsCard.text("Nobody's home!")
         } else {
+            //begin using contact data to create row information
             initializeRows(contacts);
         }
     });
 
-
+    //function to create rows
     function initializeRows(contacts) {
         let searchphrase = "";
         contactSearch.keyup(function () {
             searchphrase = (contactSearch.val())
         })
 
-
+        //empty div first
         contactsCard.empty();
+        //array to hold objects
         var contactsToAdd = [];
         for (var i = 0; i < contacts.length; i++) {
+            //push data to create dev for each item
             contactsToAdd.push(createNewRow(contacts[i]));
             console.log(contacts[i]);
             console.log(contactsToAdd);
         }
+        //append the created items to main div
         contactsCard.append(contactsToAdd);
-
+        //function to choose a selection
         contactSelect();
     }
-
+    //contact card creation
     function createNewRow(contact) {
         console.log("inside CreateNewRow: " + contact)
         const newContactCard = $("<div>");
@@ -99,44 +106,74 @@ $(document).ready(function () {
         newContactCard.append(newContactCardText, newContactCardTagline);
         return newContactCard;
     }
-
+    //function to create buttons
     function contactSelect() {
         let contactCard = $('.contactCard');
-        let contactSearch = $('#contactSearch');
-        let contactPickButton = $('<button>');
-        contactPickButton.addClass("btn mr-3");
-        contactPickButton.css({
-            backgroundColor: "lightblue"
-        });
+        let contactSelectButtons = $('#contactSelectButtons');
+
+        let contactButtonArr = [];
         contactCard.on("click", function () {
             let contactState = $(this).attr('addedToChat');
             let contactStateId = $(this).attr('contactID');
             let contactStateUser = $(this).attr('contactUser');
+
+            //if the contact is not selected, make it so
             if (contactState === 'no') {
                 $(this).css({
                     backgroundColor: "lightblue",
                 }).attr('addedToChat', 'yes');
+                let contactPickButton = $('<button>');
+                contactPickButton.addClass("btn mr-3");
+                contactPickButton.css({
+                    backgroundColor: "lightblue"
+                });
                 contactPickButton.attr("contactId", contactStateId)
-                contactSearch.val(contactStateUser);
+                contactPickButton.html("<span>" + contactStateUser + "  <i class='far fa-times-circle'></i></span>");
+
+
+                contactSelectButtons.append(contactPickButton);
+
+
+                //create object of new Contact
                 var newContact = {
                     ContactId: currentUser,
                     UserProfileId: contactStateId
-                    
                 }
+
+                //post chosedn contacts to the contacts DB
                 submitContact(newContact);
+
+                //if the contact is already selected and the user wants to deselect
             } else {
                 $(this).css({
                     backgroundColor: "white",
                 }).attr('addedToChat', 'no');
-                contactPickButton.attr("contactId", contactStateId)
+                $("button").remove(":contains(" + contactStateUser + ")")
             }
+
+            $("i").on("click", function () {
+                $(this).parent().parent("button").remove(":contains(" + contactStateUser + ")");
+                //change connected div back
+                $("#contactsCard").find(":contains(" + contactStateUser + ")").parent().css({
+                    backgroundColor: "white",
+                })
+                $("#contactsCard").find(":contains(" + contactStateUser + ")").attr('addedToChat', 'no');
+                })
+
         })
-    }
 
-    function submitContact(newContact) {
-        $.post("api/contacts", newContact)
-    }
+        $("#chatSelectButton").on("click", function(){
+            //when button is clicked, userProfileIDs will be sent to create new Chat at one Chat ID
+        })
 
+        function submitContact(newContact) {
+            $.post("api/contacts", newContact)
+        }
+
+        function submitChatGroup(newChatGroup) {
+            $.post("api/chatGroup", newChatGroup)
+        }
+    }
 
 });
 
