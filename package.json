@@ -18,6 +18,7 @@
   },
   "homepage": "https://github.com/MochaCosine1206/ChatApp#readme",
   "dependencies": {
+    "@dicebear/avatars-avataaars-sprites": "^1.0.9",
     "bcrypt-nodejs": "0.0.3",
     "express": "^4.16.4",
     "express-session": "^1.15.6",

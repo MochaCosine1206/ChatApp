@@ -9,23 +9,25 @@
   background-size: cover;
 }*/
 
- #licont{
+ /* #licont{
   margin: auto;
   width: 50%;
-  margin-top:8%;
-  border-radius: 25px;
-  padding-left:20%
+  /* margin-top:8%; */
+  /* border-radius: 25px; */
+  /* padding-left:20;
   padding
-} 
+}  */
 
-h1{
+
+h1 {
 font-family: flood-std, sans-serif;
 font-weight: 400;
 font-style: normal;
 color:yellow;
-text-shadow: 1px 1px 1px black;
+text-shadow: 2px 2px black;
 text-align:center;
 font-size: 90px;
+ 
 }
 
 label{
@@ -36,14 +38,19 @@ label{
   font-style: normal;
 }
 
-.split {
+#leftsplit{
+  background-color:#4cccef;
+  height:100vh;
+}
+
+/* .split {
   height: 100%;
   width: 50%;
   position: fixed;
   z-index: 1;
   top: 0;
   overflow-x: hidden;
-  padding-top: 10px;
+  padding-top: 20px;
 }
 
 .left {
@@ -55,11 +62,11 @@ label{
   background-repeat:  no-repeat;
   background-attachment: fixed;
   background-size: cover; */
-}
+/* } */
 /* .centered {
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
   text-align: center;
-} */
+} 
