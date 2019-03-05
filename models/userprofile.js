@@ -28,12 +28,19 @@ module.exports = function (sequelize, DataTypes) {
       type: DataTypes.STRING,
       allowNull: false
     },
+    status: {
+      type: DataTypes.BOOLEAN,
+      defaultValue: false
+    },
+    socketID: {
+      type: DataTypes.STRING,
+    }
   });
 
   UserProfile.associate = function (models) {
     // We're saying that a UserProfile should belong to an Author
     UserProfile.belongsToMany(models.Chats, { through: 'ChatUsers' });
-    UserProfile.hasMany(models.Contacts, { as: 'contactID' });
+    UserProfile.hasMany(models.ChatGroups, { as: 'contactID' });
     UserProfile.belongsTo(models.User);
   };
 

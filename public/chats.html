@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
         integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link href="stylesheets/style.css" rel="stylesheet">
+
 </head>
 
 <body>
@@ -23,26 +24,36 @@
         </div>
     </nav>
     <div class="row " id="chatRow">
-        <div class="col-md-3 border-right">
+        <div class="col-md-3 border-right" id="chatgroup">
             <div class="container-fluid">
-                <p>Left Pane</p>
                 <span><button type="button" class="btn mr-3 text-light shadow-sm rounded-circle"
-                        style="background-color: #9f39fd;"><i class="far fa-comments"></i></button>Start a
+                        style="background-color: #9f39fd;" id="chatbutton"><i class="far fa-comments"></i></button>Start a
                     Chat</span>
                 <hr>
                 <div>Chat List Placeholder, populate contacts based on current user</div>
             </div>
         </div>
-        <div class="col-md-9">
+        <div class="col-md-9" >
+                <div id="messageArea"></div>
             <div class="container-fluid">
-                <p>Right Pane</p>
-                <div>Chats here should be per active user, use jQuery to populate</div>
-                <div class="fixed-bottom">
-                    <div id="buttonSearchDiv" style="display: none;"></div>
-                    <div id="buttonSearchResults" style="display: none;"></div>
-                    <div id="buttonDiv" style="display: none;"></div>
-                    <input class="form-control form-control-lg w-75 float-right" type="text" placeholder="Chat Input">
+                    
+                <div id="chatStart" style="display: none;">
+                    
+                <h1 id="chatsearchH1">Direct Message</h1>
+                <div class="form-group">
+                    <input type="search" class="form-control" id="contactSearch" aria-describedby="searchHelp" placeholder="Find or Start a Message">
+                  </div>
+                  <div id="contactSelectButtons">
+                      <!-- contacts that are selected will populate here -->
+                      <input class="btn btn-primary" type="submit" value="Submit" id="chatSelectButton">
+                  </div>
+                <div id="contactsCard">
+                    <!--Contact divs will populate here -->
+                  </div>
                 </div>
+                <div class="fixed-bottom">
+                        <input class="form-control form-control-lg w-75 float-right" type="text" placeholder="Chat Input">
+                    </div>
             </div>
         </div>
     </div>
@@ -50,7 +61,8 @@
 
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    <!-- <script type="text/javascript" src="js/members.js"></script> -->
+    <script type="text/javascript" src="js/chats.js"></script>
+    <script src="/socket.io/socket.io.js"></script>
 
 </body>
 

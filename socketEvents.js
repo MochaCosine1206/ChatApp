@@ -1,14 +1,12 @@
 module.exports = function (io) {
 
-    var connections = [];
-    io.on('connection', function (socket) {
-        connections.push(socket);
-        console.log('Connected: %s sockets connected, socketID: ' + socket.id, connections.length);
+    io.on('connect', function (socket) {
+        console.log('Connected: %s sockets connected, socketID: ' + socket.id);
+        let sessionid = socket.id
 
         //Disconnect
         socket.on('disconnect', function (data) {
-            connections.splice(connections.indexOf(socket), 1);
-            console.log('Disconnected: %s sockets connected', connections.length);
+            console.log('Disconnected: %s sockets connected');
         })
         //interacting with userprofile.js demo
         // socket.on('send profile', function(data){
