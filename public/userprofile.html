@@ -8,7 +8,7 @@
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
   integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
   <link href="stylesheets/style.css" rel="stylesheet">
-  <script src='/socket.io/socket.io.js'></script>
+
 </head>
 
 <body>
@@ -33,13 +33,16 @@
         <div class="col-md-6">
       <div class="form-group">
         <label for="name">Name</label>
-        <input type="name" class="form-control" id="name" placeholder="Joe Blow">
+        <span id="nameInvalid" style="color: red"> - Can't Begin Or End With A Space </span>
+        <input type="name" class="form-control" id="name" placeholder="Joe Blow" required>
         <label for="userName">User Name</label>
-        <input type="username" class="form-control" id="userName" placeholder="i.e. moneygrabber53">
+        <span id="userNameInvalid" style="color: red"> - Must Be 3-15 Characters Long </span>
+        <input type="username" class="form-control" id="userName" placeholder="i.e. moneygrabber53" required>
         <label for="userAboutMe">About Me</label>
-        <input  type="userAboutMe" class="form-control" id="userAboutMe" placeholder="Write a few words about yourself here...">
+        <span id="aboutInvalid" style="color: red"> - Must Be 7 Words </span>
+        <input  type="userAboutMe" class="form-control" id="userAboutMe" placeholder="Write a few words about yourself here..." required>
         <br>
-        <button type="submit" class="btn btn-primary">Submit</button>
+        <button id="userprofile-submit" type="submit" class="btn btn-primary">Submit</button>
       </div>
     </div>
     </form>
