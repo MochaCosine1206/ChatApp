@@ -2,28 +2,44 @@ $(document).ready(function () {
 
     let socket = io.connect();
 
-
-    //below is socket demo for future reference
-
-    // nameInput.keyup(function(){
-    //     socket.emit('send profile', nameInput.val());
-    //     socket.on('return name', function(data){
-    //         ioTestDev.text(data.msg);
-    //        })
-    // })
-
     const contactsCard = $("#contactsCard");
     chatStart = $("#chatStart");
     contactSearch = $("#contactSearch")
     let contacts;
     let currentUser = "";
+    let contactButtonArr = [];
+    let userSocketID = "";
 
-
-
-    //retrieve user is from Users table
-    $.get("/api/user_data").then(function (data) {
+     //retrieve user is from Users table
+     $.get("/api/user_data").then(function (data) {
         currentUser = data.id
+        setUserStatus(userSocketID, currentUser);
     });
+
+    socket.on('connect', function(){
+        userSocketID = socket.id;
+        console.log("Your Socket ID is " + userSocketID);
+    })
+
+ 
+    function setUserStatus(userSocketID, currentUser) {
+        let userStatusData = {
+            UserId: currentUser,
+            status: true,
+            socketID: userSocketID
+        }
+        updateProfileStatus(userStatusData)
+    }   
+
+    function updateProfileStatus(userStatusData) {
+        $.ajax({
+          method: "PUT",
+          url: "/api/userProfiles",
+          data: userStatusData
+        })
+      }
+
+   
 
     //Clicking this button opens up the user selection pane
     $("#chatbutton").click(function () {
@@ -31,7 +47,13 @@ $(document).ready(function () {
     })
 
 
-
+    function updateProfileStatus(userStatusData) {
+        $.ajax({
+          method: "PUT",
+          url: "/api/userProfiles",
+          data: userStatusData
+        })
+      }
 
 
 
@@ -110,8 +132,6 @@ $(document).ready(function () {
     function contactSelect() {
         let contactCard = $('.contactCard');
         let contactSelectButtons = $('#contactSelectButtons');
-
-        let contactButtonArr = [];
         contactCard.on("click", function () {
             let contactState = $(this).attr('addedToChat');
             let contactStateId = $(this).attr('contactID');
@@ -130,18 +150,30 @@ $(document).ready(function () {
                 contactPickButton.attr("contactId", contactStateId)
                 contactPickButton.html("<span>" + contactStateUser + "  <i class='far fa-times-circle'></i></span>");
 
-
-                contactSelectButtons.append(contactPickButton);
-
-
                 //create object of new Contact
-                var newContact = {
+                let newContact = {
                     ContactId: currentUser,
                     UserProfileId: contactStateId
                 }
+                //add to button
+                contactPickButton.data(newContact);
 
-                //post chosedn contacts to the contacts DB
-                submitContact(newContact);
+                //append to div
+                contactSelectButtons.append(contactPickButton);
+
+
+
+
+
+
+                //push contact to array to add to chatgroups
+                contactButtonArr.push(newContact);
+                let contactButtonIndex = contactButtonArr.indexOf(newContact);
+                contactSelectButtons.attr("buttonIndex", contactButtonIndex)
+                console.log(contactButtonIndex)
+                console.log(contactButtonArr);
+
+
 
                 //if the contact is already selected and the user wants to deselect
             } else {
@@ -158,20 +190,43 @@ $(document).ready(function () {
                     backgroundColor: "white",
                 })
                 $("#contactsCard").find(":contains(" + contactStateUser + ")").attr('addedToChat', 'no');
-                })
+
+                var removefromSelection = $(this).parent().parent("button").attr("buttonIndex");
+                var buttonIndex = contactButtonArr[removefromSelection];
+                if (buttonIndex !== -1) {
+                    console.log(removefromSelection);
+                    contactButtonArr.splice(buttonIndex, 1);
+                }
+
+                console.log(contactButtonArr);
+            })
+
+
+
+
 
         })
 
-        $("#chatSelectButton").on("click", function(){
-            //when button is clicked, userProfileIDs will be sent to create new Chat at one Chat ID
+        $("#chatSelectButton").on("click", function () {
+            //when button is clicked, userProfileIDs will be sent to create new Chat at one Chat ID //need to push userID's to an array.
+            for (let i = 0; i < contactButtonArr.length; i++) {
+                submitContact(contactButtonArr[i]);
+            }
+            submitContact(newContact);
+            // var newMessageGroup = {
+            //     chatID: //a concatenation of userIDs in group,
+            //     Message: //message of user who sent it
+            //     UserProfileId: contactStateId //from user who sent it user where socketID = current connection
+            // }
+
         })
 
         function submitContact(newContact) {
-            $.post("api/contacts", newContact)
+            $.post("api/chatGroup", newContact)
         }
 
         function submitChatGroup(newChatGroup) {
-            $.post("api/chatGroup", newChatGroup)
+            $.post("api/chatStart", newChatGroup)
         }
     }
 

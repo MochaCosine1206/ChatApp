@@ -8,6 +8,7 @@ $(document).ready(function () {
     const userAvatar = $("#avatarImg");
     let seed = Math.floor(Math.random() * 5001);
     let avatarURL ="https://avatars.dicebear.com/v2/avataaars/:" + seed + ".svg?options[top][]=shortHair"
+    let userID = "";
 
 
     // let avatarURL = "https://avatars.dicebear.com/v2/jdenticon/:" + seed + ".svg"
@@ -24,6 +25,7 @@ $(document).ready(function () {
     // and updates the HTML on the page
     $.get("/api/user_data").then(function (data) {
         $(".member-name").text(data.email);
+        userID = data.id;
     });
 
     userAvatar.attr("src", avatarURL)
@@ -56,7 +58,8 @@ $(document).ready(function () {
             name: name,
             userName: userName,
             avatar_seed: avatar_seed,
-            tagline: tagline
+            tagline: tagline,
+            UserId: userID
             }).then(function(data){
 
                 getProfileData();
