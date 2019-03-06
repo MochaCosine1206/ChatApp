@@ -7,7 +7,7 @@ form.signup, form.login {
   width: 200px;
 }
 
-#leftpane, #rightpane #contactsrightpane,#leftpanesignup, #rightpanesignup, .body {
+#leftpane, #rightpane #contactsrightpane,#leftpanesignup, #rightpanesignup, #loginleftpane, #loginrightpane, .body {
   height: 100vh;
 }
 
