@@ -297,13 +297,38 @@ background-image: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBo
 }
 
 #contactsCard {
-  height: 400px;
+  height: 90%;
   overflow-y: scroll;
 }
 
 #chatRow {
   height: 100%;
 }
+
+#chatGroupDiv {
+  overflow-y: scroll;
+  height: 90%;
+}
+
+#chatgroup {
+  padding-right: 0px;
+}
+
+#chatInputForm {
+  position: absolute;
+  bottom: 0;
+  width: 90%;
+}
+
+#chatInput {
+  float: left;
+  width: 83%;
+}
+
+#messageSubmit {
+  float: right;
+}
+
 
 #catfishLogo {
   position: relative;

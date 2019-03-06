@@ -16,18 +16,23 @@
     <div class="col-12 col-md-6 order-1 order-md-1" id="loginleftpane">
         <h1 class="title">LOG IN FORM</h1>
         <form class="login">
-          <div id= "inputsize" class="form-group">
-            <label id="loginlabels" for="exampleInputEmail1">Email address</label>
-            <input type="email" class="form-control" id="email-input" placeholder="Email">
+          <div class="form-group">
+            <label for="exampleInputEmail1">Email address</label>
+            <input type="email" class="form-control" id="email-input" placeholder="Email" required>
           </div>
-          <div id= "inputsize" class="form-group">
-            <label id="loginlabels" for="exampleInputPassword1">Password</label>
-            <input type="password" class="form-control" id="password-input" placeholder="Password">
+          <div class="form-group">
+            <label for="exampleInputPassword1">Password</label>
+            <input type="password" class="form-control" id="password-input" placeholder="Password" required>
           </div>
+          <div style="display: none" id="alert" class="alert alert-danger" role="alert">
+            <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+            <span class="sr-only">Error:</span> <span class="msg"></span>
+          </div>
+          <button type="submit" class="btn btn-dark">Log In</button>
         </form>
 
-  <p id="links"><a  href="/login"style="color:yellow">Log in </a>
-  </p>
+
+        <br> 
   <p id="sulinks"> or Sign up<a id="links" href="/signup"style="color:yellow">here</a>
     </p>
     </div>

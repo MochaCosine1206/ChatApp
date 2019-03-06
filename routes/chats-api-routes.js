@@ -7,6 +7,12 @@ module.exports = function(app) {
         })
     })
 
+    app.get("/api/chatStart/", function(req, res){
+        db.Chats.findAll({}).then(function (data) {
+            res.json(data);
+          });
+    })
+
     app.get("/api/chatStart/:roomName", function(req, res){
         db.Chats.findAll({
             where: {

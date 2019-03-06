@@ -14,6 +14,10 @@ module.exports = function (io) {
         //     console.log(data);
         //     io.sockets.emit('return name', {msg: data});
         // })
+
+        socket.on('room', function(){
+            console.log('room');
+        })
     })
 
         
