@@ -123,39 +123,18 @@ ul li::before {
   text-shadow: 1px 1px 1px black;
 }
 
-/* ul li::before {
-  content: "\2022";
-  color:yellow;
-  font-weight: bold;
-  display: inline-block; 
-  width: 1em;
-  margin-left: -1em;
-} */
-
-
-
 /* log in css */
+.login{
+  margin-top: 10px!important;
+}
 
-
-/* #grad{
-  /* background-color: #4cccef; */
- /* For browsers that do not support gradients */
-  /* background-image: linear-gradient(#4cccef, #25697c);
-  background-repeat: no-repeat;
-  background-position: center center;
-  background-repeat:  no-repeat;
-  background-attachment: fixed;
-  background-size: cover;
-}*/
-
- /* #licont{
-  margin: auto;
-  width: 50%;
-  /* margin-top:8%; */
-  /* border-radius: 25px; */
-  /* padding-left:20;
-  padding
-}  */
+#loginlabels{
+  font-family: de-walpergens-pica, sans-serif;
+    font-weight: 400;
+    font-style: normal;
+    font-size: 4vh;
+    color:yellow;
+}
 
 #loginleftpane{
   background-color: #4cccef;
@@ -173,8 +152,9 @@ ul li::before {
 .title {
   position: relative;
   font-weight: 400;
-  font-size: 18vh;
-
+  font-size: 17vh;
+  margin-bottom:0 ;
+  padding-bottom: 0;
 
   font-family: flood-std, sans-serif;
   font-weight: 400;
@@ -186,14 +166,18 @@ ul li::before {
    
   }
   
-  /* label{
-    font-family: de-walpergens-pica, sans-serif;
-  
-    font-weight: 400;
-    
-    font-style: normal;
-  } */
-  
+#links{
+  padding-left:5%;
+  padding-bottom: 0;
+  font-size: 5vh;
+  padding-right:1%;
+}
+
+#sulinks{
+    padding-left:4%;
+    line-height: 0px;
+}
+
   #leftsplit{
     background-color:#4cccef;
     height:100vh;
@@ -201,6 +185,11 @@ ul li::before {
 
   br{
     line-height: 2%;
+  }
+
+  #inputsize{
+    width:95%;
+    padding-left:3%;
   }
 
   
