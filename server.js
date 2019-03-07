@@ -53,7 +53,7 @@ require("./routes/chats-api-routes.js")(app);
 // Syncing our sequelize models and then starting our Express app
 // =============================================================
 db.sequelize.sync().then(function () {
-  http.listen(PORT, function () {
+  http.listen(port, function () {
     console.log("==> 🌎  Listening on port %s. Visit http://localhost:%s/ in your browser.", port, port);
   });
 });
