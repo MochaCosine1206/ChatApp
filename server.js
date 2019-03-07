@@ -14,7 +14,7 @@ var socketEvents = require('./socketEvents');
 // Sets up the Express App
 // =============================================================
 
-var PORT = process.env.PORT || 8080;
+var PORT = process.env.port || 8080;
 
 // Requiring our models for syncing
 var db = require("./models");
