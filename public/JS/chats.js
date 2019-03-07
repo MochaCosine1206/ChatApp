@@ -375,11 +375,13 @@ $(document).ready(function () {
         chatMessageArea.empty();
         thisUserName = "";
         for (let i = 0; i < chatdata.length; i++) {
-            userProfileId = chatdata[i].UserProfileId
-            $.get("api/userProfiles/" + userProfileId).then(function (data) {
-                //Get userprofile ID to use to post messages to chat table
-                thisUserName = data[0].name;
-            });
+            // userProfileId = chatdata[i].UserProfileId
+            // console.log(chatdata[i].UserProfileId);
+            //     $.get("api/userProfiles/" + userProfileId).then(function (data) {
+            //         thisUserName = data[0].name;
+            //         console.log("User Name: " + thisUserName)
+            //     });
+            
             let messageDiv = $("<div>");
             messageDiv.addClass('row');
             messageDiv.css({
@@ -392,11 +394,11 @@ $(document).ready(function () {
             let messageTimeDiv = $('<div>');
             messageTimeDiv.addClass("col 4")
             messageTimeDiv.attr("id", "messageTime")
-            let messageNameDiv = $('<div>');
-            messageNameDiv.addClass("col 2")
-            messageNameDiv.text(thisUserName + ": ");
+            // let messageNameDiv = $('<div>');
+            // messageNameDiv.addClass("col 2")
+            // messageNameDiv.text(thisUserName + ": ");
             messageTimeDiv.text(moment(chatdata[i].createdAt).fromNow())
-            messageDiv.append(messageNameDiv, messageTextDiv, messageTimeDiv)
+            messageDiv.append(messageTextDiv, messageTimeDiv)
             chatMessageArea.append(messageDiv);
             chatMessageArea[0].scrollTop = chatMessageArea[0].scrollHeight;
         }
