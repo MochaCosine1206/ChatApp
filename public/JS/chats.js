@@ -2,11 +2,14 @@
 
 $(document).ready(function () {
 
+    
+
     let socket = io();
 
     const contactsCard = $("#contactsCard");
     let chatStart = $("#chatStart");
     // let contactSearch = $("#contactSearch");
+    let chatMessageArea = $("#messageArea")
     let thisUser;
     let contactState;
     let contactStateId;
@@ -22,11 +25,12 @@ $(document).ready(function () {
     let userSocketID = "";
     let chatRoomID = "";
     let room = "";
+    let thisName = "";
 
 
     $.get("/api/user_data").then(function (data) {
         currentUser = data.id
-        setUserStatus(userSocketID, currentUser);
+        // setUserStatus(userSocketID, currentUser);
         setCurrentProfileUser()
     });
 
@@ -43,9 +47,11 @@ $(document).ready(function () {
     // })
 
     function setCurrentProfileUser() {
+        
         $.get("api/userProfiles/" + currentUser).then(function (data) {
             console.log(data[0].id);
             thisUser = data[0].id;
+            thisName = data[0].name;
             console.log("this user is: " + thisUser);
             //Get userprofile ID to use to post messages to chat table
         });
@@ -84,6 +90,14 @@ $(document).ready(function () {
     //Clicking this button opens up the user selection pane
     $("#chatbutton").click(function () {
         chatStart.toggle();
+        if($("#contactsCard").is(":visible")){
+            console.log("visible")
+            
+        } else {
+            console.log("hidden")
+            getContacts()
+            contactsCard.show();
+        }
     })
 
 
@@ -114,12 +128,14 @@ $(document).ready(function () {
 
         console.log("before contacts loop")
         for (var i = 0; i < contacts.length; i++) {
-
-            console.log("looping number: " + contacts.length)
-            //push data to create dev for each item
-            contactsToAdd.push(createNewRow(contacts[i]));
-            console.log(contacts[i]);
-            console.log(contactsToAdd);
+            if (contacts[i].id !== thisUser) {
+                console.log("looping number: " + contacts.length)
+                //push data to create dev for each item
+                contactsToAdd.push(createNewRow(contacts[i]));
+                console.log(contacts[i]);
+                console.log(contactsToAdd);
+            }
+            
         }
         //append the created items to main div
         contactsCard.append(contactsToAdd);
@@ -282,7 +298,9 @@ $(document).ready(function () {
         }).attr("addedToChat", "no")
         //clear selection div
         contactsCard.empty();
-        $('#contactSelectButtons').empty();
+        contactsToAdd = [];
+        chatStart.toggle();
+        $('#contactSelectButtons').hide();
         //get chatRoom Name
         chatRoomName = chatRoomID
         //get last item in chat
@@ -321,6 +339,7 @@ $(document).ready(function () {
             room = $(this).attr("chatRoom");
             console.log("The room is: " + room);
             socket.emit("room", room);
+            socket.emit("userMessage", room);
 
         })
 
@@ -349,23 +368,28 @@ $(document).ready(function () {
 
     function messageStream(chatdata) {
         console.log("insideMessageStream")
-        let chatMessageArea = $("#messageArea")
-        chatMessageArea.css({
-            overflowY: "scroll",
-            height: "400px"
-        });
-        chatMessageArea.animate({
-            scrollTop: $(this)[0].scrollHeight
-        }, "fast");
+        chatMessageArea[0].scrollTop = chatMessageArea[0].scrollHeight;
         chatMessageArea.empty();
         for (let i = 0; i < chatdata.length; i++) {
             let messageDiv = $("<div>");
+            messageDiv.addClass('row');
+            messageDiv.css({
+                lineHeight: "40px"
+            })
             let messageTextDiv = $('<div>');
+            messageTextDiv.addClass("col 6");
+            messageTextDiv.attr("id", "messageSender")
             messageTextDiv.text(chatdata[i].message);
             let messageTimeDiv = $('<div>');
+            messageTimeDiv.addClass("col 4")
+            messageTimeDiv.attr("id", "messageTime")
+            let messageNameDiv = $('<div>');
+            messageNameDiv.addClass("col 2")
+            messageNameDiv.text(thisName + ": ");
             messageTimeDiv.text(moment(chatdata[i].createdAt).fromNow())
-            messageDiv.append(messageTextDiv, messageTimeDiv)
+            messageDiv.append(messageNameDiv, messageTextDiv, messageTimeDiv)
             chatMessageArea.append(messageDiv);
+            chatMessageArea[0].scrollTop = chatMessageArea[0].scrollHeight;
         }
         
     }
