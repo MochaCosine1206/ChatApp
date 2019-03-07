@@ -5,13 +5,15 @@ $(document).ready(function () {
     let socket = io();
 
     const contactsCard = $("#contactsCard");
-    chatStart = $("#chatStart");
-    contactSearch = $("#contactSearch");
+    let chatStart = $("#chatStart");
+    // let contactSearch = $("#contactSearch");
+    let thisUser;
     let contactState;
     let contactStateId;
     let contactStateName;
     let contactStateUser;
     let contacts;
+    let chatRoomName;
     let currentUser = "";
     var contactsToAdd = [];
     let contactButtonArr = [];
@@ -21,9 +23,11 @@ $(document).ready(function () {
     let chatRoomID = "";
     let room = "";
 
+
     $.get("/api/user_data").then(function (data) {
         currentUser = data.id
         setUserStatus(userSocketID, currentUser);
+        setCurrentProfileUser()
     });
 
 
@@ -38,7 +42,14 @@ $(document).ready(function () {
     //     setUserStatus(userSocketID, currentUser)
     // })
 
-
+    function setCurrentProfileUser() {
+        $.get("api/userProfiles/" + currentUser).then(function (data) {
+            console.log(data[0].id);
+            thisUser = data[0].id;
+            console.log("this user is: " + thisUser);
+            //Get userprofile ID to use to post messages to chat table
+        });
+    }
 
 
 
@@ -250,6 +261,8 @@ $(document).ready(function () {
         }
         submitChatGroup(newMessageGroup)
         setUpChat(contactIdArr, chatRoomID)
+        
+
     })
 
     function submitContact(newContact) {
@@ -271,7 +284,7 @@ $(document).ready(function () {
         contactsCard.empty();
         $('#contactSelectButtons').empty();
         //get chatRoom Name
-        let chatRoomName = chatRoomID
+        chatRoomName = chatRoomID
         //get last item in chat
         getChats()
         // $.get("/api/chatStart/" + chatRoomName).then(function (data) {
@@ -302,35 +315,88 @@ $(document).ready(function () {
         //function to choose a selection
 
         //--Get Click Events from Card Groups
-        $("#chatGroupCardId").click(function () {
+        let chatGroupCard = $(".chatGroupCardId")
+        chatGroupCard.click(function () {
             console.log("you clicked!")
             room = $(this).attr("chatRoom");
             console.log("The room is: " + room);
-            socket.emit(room);
-            
+            socket.emit("room", room);
+
         })
 
         contactIdArr = [];
     }
 
+    socket.on('message', function (data) {
+        console.log('incoming message: ', data);
+
+    })
+
+    socket.on('room', function (data) {
+        chatRoomName = data;
+        //get chatinfo
+    })
+    
+    socket.on('userMessage', function(){
+        console.log("this isthe chatroom: " + chatRoomName)
+        $.get("/api/chatStart/" + chatRoomName).then(function (data) {
+            chats = data
+            console.log("Chatroom info fired from socket" + chats)
+            messageStream(chats);
+        });
+    })
+    
+
+    function messageStream(chatdata) {
+        console.log("insideMessageStream")
+        let chatMessageArea = $("#messageArea")
+        chatMessageArea.css({
+            overflowY: "scroll",
+            height: "400px"
+        });
+        chatMessageArea.animate({
+            scrollTop: $(this)[0].scrollHeight
+        }, "fast");
+        chatMessageArea.empty();
+        for (let i = 0; i < chatdata.length; i++) {
+            let messageDiv = $("<div>");
+            let messageTextDiv = $('<div>');
+            messageTextDiv.text(chatdata[i].message);
+            let messageTimeDiv = $('<div>');
+            messageTimeDiv.text(moment(chatdata[i].createdAt).fromNow())
+            messageDiv.append(messageTextDiv, messageTimeDiv)
+            chatMessageArea.append(messageDiv);
+        }
+        
+    }
 
     //make card, apply class,add attributes
     //get time of last item in chat and convert to days ago
     //contact card creation
     function createNewChatRow(chat) {
-        let numberOfUsers = chat.chatID.split(", ").length
-        console.log("inside CreateNewRow: chat length" + numberOfUsers)
-        const newChatCard = $("<div>");
-        newChatCard.addClass("card");
-        newChatCard.attr("id", "chatGroupCardId")
-        newChatCard.attr("chatRoom", chat.chatID)
-        const numMembers = $("<div>");
-        numMembers.text(numberOfUsers);
-        const chatName = $('<div>');
-        chatName.addClass("card-title")
-        chatName.text(chat.chatID);
-        newChatCard.append(numMembers, chatName)
-        return newChatCard;
+        if(chat.chatID){
+            console.log("chat before error" + chat.chatID)
+            let numberOfUsers = chat.chatID.split(", ").length
+            console.log("inside CreateNewRow: chat length" + numberOfUsers)
+            const newChatCard = $("<div>");
+            newChatCard.addClass("card chatGroupCardId");
+            const newChatCardBody = $('<div>');
+            newChatCardBody.addClass("card-body");
+            // newChatCard.attr("id", "chatGroupCardId")
+            newChatCard.attr("chatRoom", chat.chatID)
+            const numMembers = $("<div>");
+            numMembers.text(numberOfUsers);
+            const chatName = $('<h6>');
+            chatName.addClass("card-title")
+            chatName.text(chat.chatID);
+            newChatCard.append(newChatCardBody)
+            newChatCardBody.append(chatName, numMembers)
+            
+            return newChatCard;
+        } else {
+            console.log("There was a null value")
+        }
+        
     }
     //Create div for messages to go in
     //add submit button to input
@@ -347,7 +413,7 @@ $(document).ready(function () {
     getChats()
 
     function getChats() {
-        $.get("/api/chatStart").then(function (data) {
+        $.get("/api/chatStartdistinct/").then(function (data) {
             chats = data
             if (chats) {
                 console.log("Inside Chat Start: " + chats)
@@ -362,21 +428,43 @@ $(document).ready(function () {
     //set up room based on Chat ID name to get chat data by oldest first at the ChatRoom Name by oldest first
 
     //--Get Input from message Text Box
-    $(function(){
-        $('#chatInput').keypress(function(e){
+    $(function () {
+        $('#chatInput').keypress(function (e) {
             if (e.which == 13) {
+                
                 console.log($(this).val())
+                let message = $(this).val()
+                submitMessage(message, thisUser)
+                $(this).val("");
+                socket.emit("userMessage", room);
             }
         })
     })
 
-    $("#messageSubmit").click(function(){
+   
+
+    $("#messageSubmit").click(function () {
         event.preventDefault();
-       console.log( $('#chatInput').val())
+        socket.emit("userMessage");
+        console.log($('#chatInput').val())
+        let message = $('#chatInput').val()
+        submitMessage(message, thisUser)
+        $(this).val("");
+        socket.emit("userMessage", room);
     })
 
 
-
+    function submitMessage(message, thisUser) {
+        console.log("Inside submit message " + thisUser)
+        $.post("/api/chatStart", {
+            chatID: chatRoomName,
+            message: message,
+            UserProfileId: thisUser
+        }).then(function (data) {
+            messages = data
+            console.log(messages)
+        });
+    }
 
 });
 

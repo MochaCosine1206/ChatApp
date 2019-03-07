@@ -33,5 +33,16 @@ app.get("/api/userProfiles", function (req, res) {
     res.json(data);
   });
 });
+
+app.get("/api/userProfiles/:UserId", function(req, res){
+  console.log(req.params.UserId)
+  db.UserProfile.findAll({
+      where: {
+          UserID: req.params.UserId
+      }
+  }).then(function (data) {
+      res.json(data);
+    });
+})
   
   };
