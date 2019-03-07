@@ -45,15 +45,15 @@ app.get("/api/userProfiles/:UserId", function(req, res){
     });
 })
 
-app.get("/api/userProfiles/:userProfileId", function(req, res){
-  console.log(req.params.userProfileId)
-  db.UserProfile.findAll({
-      where: {
-          id: req.params.userProfileId
-      }
-  }).then(function (data) {
-      res.json(data);
-    });
-})
+// app.get("/api/userProfiles/:userProfileId", function(req, res){
+//   console.log(req.params.userProfileId)
+//   db.UserProfile.findAll({
+//       where: {
+//           id: req.params.userProfileId
+//       }
+//   }).then(function (data) {
+//       res.json(data);
+//     });
+// })
   
   };
