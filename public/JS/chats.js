@@ -31,10 +31,10 @@ $(document).ready(function () {
     });
 
 
-    socket.on('connect', function () {
-        userSocketID = socket.id;
-        console.log("Your Socket ID is " + userSocketID);
-    })
+    // socket.on('connect', function () {
+    //     userSocketID = socket.id;
+    //     console.log("Your Socket ID is " + userSocketID);
+    // })
 
     // socket.on('disconnect', function(reason){
     //     userSocketID = null;
@@ -53,31 +53,31 @@ $(document).ready(function () {
 
 
 
-    function setUserStatus(userSocketID, currentUser) {
-        if (!userSocketID) {
-            let userStatusData = {
-                UserId: currentUser,
-                status: false,
-                socketID: userSocketID
-            }
-            updateProfileStatus(userStatusData)
-        } else {
-            let userStatusData = {
-                UserId: currentUser,
-                status: true,
-                socketID: userSocketID
-            }
-            updateProfileStatus(userStatusData)
-        }
-    }
+    // function setUserStatus(userSocketID, currentUser) {
+    //     if (!userSocketID) {
+    //         let userStatusData = {
+    //             UserId: currentUser,
+    //             status: false,
+    //             socketID: userSocketID
+    //         }
+    //         updateProfileStatus(userStatusData)
+    //     } else {
+    //         let userStatusData = {
+    //             UserId: currentUser,
+    //             status: true,
+    //             socketID: userSocketID
+    //         }
+    //         updateProfileStatus(userStatusData)
+    //     }
+    // }
 
-    function updateProfileStatus(userStatusData) {
-        $.ajax({
-            method: "PUT",
-            url: "/api/userProfiles",
-            data: userStatusData
-        })
-    }
+    // function updateProfileStatus(userStatusData) {
+    //     $.ajax({
+    //         method: "PUT",
+    //         url: "/api/userProfiles",
+    //         data: userStatusData
+    //     })
+    // }
 
 
 
