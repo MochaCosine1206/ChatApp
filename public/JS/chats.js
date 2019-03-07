@@ -367,10 +367,19 @@ $(document).ready(function () {
     
 
     function messageStream(chatdata) {
+
         console.log("insideMessageStream")
+
+
         chatMessageArea[0].scrollTop = chatMessageArea[0].scrollHeight;
         chatMessageArea.empty();
+        thisUserName = "";
         for (let i = 0; i < chatdata.length; i++) {
+            userProfileId = chatdata[i].UserProfileId
+            $.get("api/userProfiles/" + userProfileId).then(function (data) {
+                //Get userprofile ID to use to post messages to chat table
+                thisUserName = data[0].name;
+            });
             let messageDiv = $("<div>");
             messageDiv.addClass('row');
             messageDiv.css({
@@ -385,7 +394,7 @@ $(document).ready(function () {
             messageTimeDiv.attr("id", "messageTime")
             let messageNameDiv = $('<div>');
             messageNameDiv.addClass("col 2")
-            messageNameDiv.text(thisName + ": ");
+            messageNameDiv.text(thisUserName + ": ");
             messageTimeDiv.text(moment(chatdata[i].createdAt).fromNow())
             messageDiv.append(messageNameDiv, messageTextDiv, messageTimeDiv)
             chatMessageArea.append(messageDiv);
