@@ -14,7 +14,7 @@ var socketEvents = require('./socketEvents');
 // Sets up the Express App
 // =============================================================
 
-var PORT = process.env.port || 8080;
+var port = process.env.port || 8080;
 
 // Requiring our models for syncing
 var db = require("./models");
@@ -54,7 +54,7 @@ require("./routes/chats-api-routes.js")(app);
 // =============================================================
 db.sequelize.sync().then(function () {
   http.listen(PORT, function () {
-    console.log("==> 🌎  Listening on port %s. Visit http://localhost:%s/ in your browser.", PORT, PORT);
+    console.log("==> 🌎  Listening on port %s. Visit http://localhost:%s/ in your browser.", port, port);
   });
 });
 
