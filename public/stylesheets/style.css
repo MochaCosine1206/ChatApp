@@ -402,14 +402,14 @@ br {
   margin-top: 1%;
   margin-bottom: 1%;
   max-height: 400px;
-  overflow: hidden;
   background-color: white;
   border-radius: 5px;
+  overflow-y: scroll;
 }
 
 #messageSender {
   width: 100%;
-  font-size: 13px;
+  font-size: 16px;
   color: black;
   font-weight: bold;
   font-family: Arial, Helvetica, sans-serif;
@@ -442,7 +442,7 @@ br {
 }
 
 #messageNameDiv {
-  font-size: 12px;
+  font-size: 14px;
 }
 
 #chatsBody {

@@ -410,7 +410,7 @@ $(document).ready(function () {
             if (chatdata[i].message !== null) {
                 let messageDiv = $("<div>");
                 messageDiv.css({
-                    lineHeight: "18px",
+                    lineHeight: "23px",
                     padding: "10px",
                     borderTop: "1px solid grey"
                 })
