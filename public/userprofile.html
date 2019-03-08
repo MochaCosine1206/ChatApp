@@ -1,5 +1,7 @@
+
+    
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en"> 
 
 <head>
   <title>Profile Entry</title>
@@ -7,14 +9,18 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
   integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://use.typekit.net/bqo2zdq.css">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+
+
   <link href="stylesheets/style.css" rel="stylesheet">
 
 </head>
 
 <body>
-  <div class="body">
-    <nav class="navbar navbar-default navbar-light shadow-sm" style="background-color: #4cccef;">
-        <div class="container-fluid">
+  <div class="userpBackground">
+    <nav class="navbar navbar-default navbar-light shadow-sm " style="background-color: #4cccef;">
+        <div class="container-fluid justify-content-end">
             <div class="navbar-header">
                 <a class="navbar-brand text-light" href="/logout">
                     Logout
@@ -22,11 +28,12 @@
             </div>
         </div>
     </nav>
+    
   <div class="container">
     <div class="row">
-      <div class="col-md-6 col-md-offset-3" id="ioTestDev">
+      <div class="col-md-6 col-md-offset-3">
         
-        <h2>Welcome <span class="member-name"></span>.  Please fill out additional info below</h2>
+        <h2 id="userptitle">Welcome ...<span class="member-name"></span>.  Please fill out additional info below</h2>
       </div>
     </div>
     <!-- need profile page div here   -->
@@ -50,9 +57,32 @@
     </form>
     <div class="col-md-6">
       <div style =  "position:absolute; right:80px;top:-90px;">
-        
-        <p>Your Random Avatar Image</p>
+          
+          <div class="card w-20 h-40">
+              <div class="card-body">
+                <h5 class="card-title">Your Random Avatar Image</h5>
+                
+                <img class="card-img"id="avatarImg">
+                <div class = "row">
+               <div class="col-md-12">
+            <div style =  "position:absolute; bottom:-247px; right: 78px;">
+              <a class="previous"><i class="far fa-arrow-alt-circle-left"></i></a>
+              <a class="next"><i class="far fa-arrow-alt-circle-right"></i></a> 
+              </div>
+            </div>
+            </div>
+            
+
+
+        <!-- <p>Your Random Avatar Image</p>
+        <div style ="position:absolute; bottom:-200px; right: 70px;">
         <img class="img-thumbnail" id="avatarImg">
+        </
+         -->
+  <div id="images">
+    </div>
+    </div>
+  </div>
 
       </div>
 

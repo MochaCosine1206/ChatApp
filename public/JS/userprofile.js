@@ -7,16 +7,41 @@ $(document).ready(function () {
     const userAbout = $("#userAboutMe");
     const userAvatar = $("#avatarImg");
     let seed = Math.floor(Math.random() * 5001);
-    let avatarURL ="https://avatars.dicebear.com/v2/avataaars/:" + seed + ".svg?options[top][]=shortHair"
+    let avatarURL = "";
     let userID = "";
+
 
 
     // let avatarURL = "https://avatars.dicebear.com/v2/jdenticon/:" + seed + ".svg"
 
 
+    function avatarChoice() {
 
+    let counter = 1;
+    const leftArrow = $(".previous");
+    const rightArrow = $(".next");
+    avatarURL ="https://avatars.dicebear.com/v2/avataaars/:" + counter + ".svg"
+    userAvatar.attr("src", avatarURL)
+    
+    leftArrow.on("click",function(){
+        counter--
+    
+        console.log(counter);
+        avatarURL ="https://avatars.dicebear.com/v2/avataaars/:" + counter + ".svg"
+        userAvatar.attr("src", avatarURL)
+    })
 
+    rightArrow.click(function(){
+        counter++
+        console.log(counter);
+        avatarURL ="https://avatars.dicebear.com/v2/avataaars/:" + counter + ".svg"
+        userAvatar.attr("src", avatarURL)
+    })
+    
 
+    }
+
+avatarChoice();
 
 
     //use custom avatar image for new profile
@@ -28,7 +53,7 @@ $(document).ready(function () {
         userID = data.id;
     });
 
-    userAvatar.attr("src", avatarURL)
+    
 
     profileForm.on("submit", function (event) {
         event.preventDefault();
@@ -138,6 +163,8 @@ $(document).ready(function () {
           $('#aboutInvalid').show();
         }
     });
+
+
 
         
 
