@@ -331,18 +331,23 @@ $(document).ready(function () {
         //empty div first
         chatGroupArea.empty();
         //array to hold objects
-        var chatgroupsToAdd = [];
-        for (var i = 0; i < chats.length; i++) {
-            //push data to create dev for each item
-            chatgroupsToAdd.push(createNewChatRow(chats[i]));
-            console.log(chats[i]);
-            console.log(chatgroupsToAdd);
-        }
-        //append the created items to main div
-        chatGroupArea.append(chatgroupsToAdd);
-        //function to choose a selection
+        let chatgroupsToAdd = [];
+        $.get("api/userProfiles/" + currentUser).then(function (data) {
+            thisName = data[0].name;
 
-        //--Get Click Events from Card Groups
+            
+                for (var i = 0; i < chats.length; i++) {
+                    if (chats[i].chatID.indexOf(thisName) >=0 ) {
+                    //if this name is in the chatID, do not create card
+                    //push data to create dev for each item
+                    chatgroupsToAdd.push(createNewChatRow(chats[i]));
+                    console.log(chats[i]);
+                    console.log(chatgroupsToAdd);
+                }
+                chatGroupArea.append(chatgroupsToAdd);
+            }
+       
+
         let chatGroupCard = $(".chatGroupCardId")
         chatGroupCard.click(function () {
             console.log("you clicked!")
@@ -352,8 +357,15 @@ $(document).ready(function () {
             socket.emit("userMessage", room);
 
         })
-
+        contactNameArr = [];
         contactIdArr = [];
+    });
+        //append the created items to main div
+        
+        //function to choose a selection
+
+        //--Get Click Events from Card Groups
+        
 
     }
 
@@ -386,12 +398,6 @@ $(document).ready(function () {
         chatMessageArea.empty();
         thisUserName = "";
         for (let i = 0; i < chatdata.length; i++) {
-            // userProfileId = chatdata[i].UserProfileId
-            // console.log(chatdata[i].UserProfileId);
-            //     $.get("api/userProfiles/" + userProfileId).then(function (data) {
-            //         thisUserName = data[0].name;
-            //         console.log("User Name: " + thisUserName)
-            //     });
             if (chatdata[i].message !== null) {
                 let messageDiv = $("<div>");
                 messageDiv.addClass('row');
