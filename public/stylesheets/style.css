@@ -23,6 +23,30 @@ form.signup, form.login {
   border: solid red;
 }
 
+#login-password-input:invalid {
+  border: solid red;
+}
+
+#login-password-input:valid {
+  border: solid lawngreen;
+}
+
+#login-email-input:invalid {
+  border: solid red;
+}
+
+#login-email-input {
+  width: 50%;
+}
+
+#login-password-input {
+  width: 50%;
+}
+
+#login-email-input:valid {
+  border: solid lawngreen;
+}
+
 label[for=exampleInputEmail1]{
   color: #4cccef;
   font-family: de-walpergens-pica, sans-serif;
@@ -43,9 +67,6 @@ label[for=exampleInputPassword1]{
   font-size: 3vh;
 }
 
-#email-input:valid {
-  border: solid lawngreen;
-}
 
 #signup-background {
   background: linear-gradient(blue, whitesmoke, rgb(76, 204, 239));
