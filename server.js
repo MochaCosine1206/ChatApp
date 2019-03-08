@@ -43,15 +43,16 @@ app.use(passport.session());
 
 // Routes
 // =============================================================
-require("./routes/html-routes-api.js")(app);
-require("./routes/register-api-routes.js")(app);
-require("./routes/profile-api-routes.js")(app);
-require("./routes/chatGroup-api-routes.js")(app);
+require("./routes/html-routes-api")(app);
+require("./routes/register-api-routes")(app);
+require("./routes/profile-api-routes")(app);
+require("./routes/chatGroup-api-routes")(app);
+require("./routes/chats-api-routes")(app);
 
 
 // Syncing our sequelize models and then starting our Express app
 // =============================================================
-db.sequelize.sync({ force: true }).then(function () {
+db.sequelize.sync().then(function () {
   http.listen(PORT, function () {
     console.log("==> 🌎  Listening on port %s. Visit http://localhost:%s/ in your browser.", PORT, PORT);
   });

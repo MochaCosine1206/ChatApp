@@ -1,13 +1,19 @@
 module.exports = function(sequelize, DataTypes) {
     var Chats = sequelize.define("Chats", {
       chatID: {
-        type: DataTypes.UUID,
+        type: DataTypes.TEXT,
       },
       message: {
         type: DataTypes.TEXT,
       },
         messageTime: {
         type: DataTypes.DATE,
+      },
+      UserProfileId: {
+        type: DataTypes.UUID,
+      },
+      UserName: {
+        type: DataTypes.STRING
       }
     });
   
