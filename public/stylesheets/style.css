@@ -6,12 +6,7 @@ form.signup, form.login {
   margin-top: 50px;
 }
 
-#avatarImg {
-  position: absolute;
-  right: 62px;
-  height: 200px;
-  width: 200px;
-}
+
 
 #leftpane, #rightpane #contactsrightpane, #leftpanesignup, #rightpanesignup, #loginleftpane, #loginrightpane, .body {
   height: 100vh;
