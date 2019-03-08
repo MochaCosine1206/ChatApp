@@ -61,6 +61,7 @@ $(document).ready(function () {
 
             //Get userprofile ID to use to post messages to chat table
             getContacts(thisUser)
+            
         });
     }
 
