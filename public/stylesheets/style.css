@@ -447,10 +447,3 @@ a {
     font-size: 4vh;
 
   }
-
-  .card-body {
-    
-    flex: 1 1 auto;
-    padding: 2.5rem;
-    height: 328px;
-  }
