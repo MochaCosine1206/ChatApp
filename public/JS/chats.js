@@ -334,17 +334,18 @@ $(document).ready(function () {
         let chatgroupsToAdd = [];
         $.get("api/userProfiles/" + currentUser).then(function (data) {
             thisName = data[0].name;
-
-            
                 for (var i = 0; i < chats.length; i++) {
-                    if (chats[i].chatID.indexOf(thisName) >=0 ) {
-                    //if this name is in the chatID, do not create card
-                    //push data to create dev for each item
-                    chatgroupsToAdd.push(createNewChatRow(chats[i]));
-                    console.log(chats[i]);
-                    console.log(chatgroupsToAdd);
-                }
-                chatGroupArea.append(chatgroupsToAdd);
+                    if(chats[i].chatID !== null) {
+                        if (chats[i].chatID.indexOf(thisName) >=0 ) {
+                            //if this name is in the chatID, do not create card
+                            //push data to create dev for each item
+                            chatgroupsToAdd.push(createNewChatRow(chats[i]));
+                            console.log(chats[i]);
+                            console.log(chatgroupsToAdd);
+                        }
+                        chatGroupArea.append(chatgroupsToAdd);
+                    }
+
             }
        
 
