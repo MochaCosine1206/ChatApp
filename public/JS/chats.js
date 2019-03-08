@@ -2,35 +2,45 @@
 
 $(document).ready(function () {
 
+    
+
     let socket = io();
 
     const contactsCard = $("#contactsCard");
-    chatStart = $("#chatStart");
-    contactSearch = $("#contactSearch");
+    let chatStart = $("#chatStart");
+    // let contactSearch = $("#contactSearch");
+    let chatMessageArea = $("#messageArea")
+    let thisUser;
     let contactState;
     let contactStateId;
     let contactStateName;
     let contactStateUser;
     let contacts;
+    let chatRoomName;
     let currentUser = "";
     var contactsToAdd = [];
     let contactButtonArr = [];
     let contactNameArr = [];
     let contactIdArr = [];
-    let userSocketID = "";
+    // let userSocketID = "";
     let chatRoomID = "";
     let room = "";
+    let thisName = "";
 
-    $.get("/api/user_data").then(function (data) {
-        currentUser = data.id
-        setUserStatus(userSocketID, currentUser);
-    });
+    function getUserInfo(){
+        $.get("/api/user_data").then(function (data) {
+            currentUser = data.id
+            // setUserStatus(userSocketID, currentUser);
+            setCurrentProfileUser()
+        });
+    }
+    
 
 
-    socket.on('connect', function () {
-        userSocketID = socket.id;
-        console.log("Your Socket ID is " + userSocketID);
-    })
+    // socket.on('connect', function () {
+    //     userSocketID = socket.id;
+    //     console.log("Your Socket ID is " + userSocketID);
+    // })
 
     // socket.on('disconnect', function(reason){
     //     userSocketID = null;
@@ -38,47 +48,69 @@ $(document).ready(function () {
     //     setUserStatus(userSocketID, currentUser)
     // })
 
+    function setCurrentProfileUser() {
+        
+        $.get("api/userProfiles/" + currentUser).then(function (data) {
+            console.log(data[0].id);
+            thisUser = data[0].id;
+            thisName = data[0].name;
+            console.log("this user is: " + thisUser);
+            contactIdArr.push(thisUser)
+            contactNameArr.push(thisName)
+            console.log(contactIdArr + " " + contactNameArr)
 
-
-
-
-    function setUserStatus(userSocketID, currentUser) {
-        if (!userSocketID) {
-            let userStatusData = {
-                UserId: currentUser,
-                status: false,
-                socketID: userSocketID
-            }
-            updateProfileStatus(userStatusData)
-        } else {
-            let userStatusData = {
-                UserId: currentUser,
-                status: true,
-                socketID: userSocketID
-            }
-            updateProfileStatus(userStatusData)
-        }
+            //Get userprofile ID to use to post messages to chat table
+            getContacts(thisUser)
+        });
     }
 
-    function updateProfileStatus(userStatusData) {
-        $.ajax({
-            method: "PUT",
-            url: "/api/userProfiles",
-            data: userStatusData
-        })
-    }
+
+
+    // function setUserStatus(userSocketID, currentUser) {
+    //     if (!userSocketID) {
+    //         let userStatusData = {
+    //             UserId: currentUser,
+    //             status: false,
+    //             socketID: userSocketID
+    //         }
+    //         updateProfileStatus(userStatusData)
+    //     } else {
+    //         let userStatusData = {
+    //             UserId: currentUser,
+    //             status: true,
+    //             socketID: userSocketID
+    //         }
+    //         updateProfileStatus(userStatusData)
+    //     }
+    // }
+
+    // function updateProfileStatus(userStatusData) {
+    //     $.ajax({
+    //         method: "PUT",
+    //         url: "/api/userProfiles",
+    //         data: userStatusData
+    //     })
+    // }
 
 
 
     //Clicking this button opens up the user selection pane
     $("#chatbutton").click(function () {
+        
         chatStart.toggle();
+        if($("#contactsCard").is(":visible")){
+            console.log("visible")
+            
+        } else {
+            console.log("hidden")
+            contactsCard.show();
+        }
     })
 
 
 
 
-    function getContacts() {
+    function getContacts(thisUser) {
         //retreive user profile information
         $.get("api/userProfiles").then(function (data) {
             console.log(data);
@@ -88,14 +120,14 @@ $(document).ready(function () {
                 contactsCard.text("Nobody's home!")
             } else {
                 //begin using contact data to create row information
-                initializeRows(contacts);
+                initializeRows(contacts, thisUser);
             }
         });
     }
 
 
     //function to create rows
-    function initializeRows(contacts) {
+    function initializeRows(contacts, thisUser) {
         console.log("Inside initialize Rows, contacts length: " + contacts)
         //empty div first
         contactsCard.empty();
@@ -103,12 +135,15 @@ $(document).ready(function () {
 
         console.log("before contacts loop")
         for (var i = 0; i < contacts.length; i++) {
-
-            console.log("looping number: " + contacts.length)
-            //push data to create dev for each item
-            contactsToAdd.push(createNewRow(contacts[i]));
-            console.log(contacts[i]);
-            console.log(contactsToAdd);
+            console.log(contacts[i].id + " " + thisUser)
+            if (contacts[i].id !== thisUser) {
+                console.log("looping number: " + contacts.length)
+                //push data to create dev for each item
+                contactsToAdd.push(createNewRow(contacts[i]));
+                console.log(contacts[i]);
+                console.log(contactsToAdd);
+            }
+            
         }
         //append the created items to main div
         contactsCard.append(contactsToAdd);
@@ -191,6 +226,7 @@ $(document).ready(function () {
                 //push contact to array to add to chatgroups
                 contactButtonArr.push(newContact);
                 contactNameArr.push(contactStateName);
+                console.log("seeing if all names here" + contactNameArr)
                 contactIdArr.push(contactStateId)
                 let contactButtonIndex = contactButtonArr.indexOf(newContact);
                 contactSelectButtons.attr("buttonIndex", contactButtonIndex)
@@ -249,7 +285,9 @@ $(document).ready(function () {
 
         }
         submitChatGroup(newMessageGroup)
-        setUpChat(contactIdArr, chatRoomID)
+        
+        
+
     })
 
     function submitContact(newContact) {
@@ -258,6 +296,7 @@ $(document).ready(function () {
 
     function submitChatGroup(newChatGroup) {
         $.post("api/chatStart", newChatGroup)
+        setUpChat(contactIdArr, chatRoomID)
     }
 
     function setUpChat(contactIdArr, chatRoomID) {
@@ -269,19 +308,12 @@ $(document).ready(function () {
         }).attr("addedToChat", "no")
         //clear selection div
         contactsCard.empty();
-        $('#contactSelectButtons').empty();
+        contactsToAdd = [];
+        chatStart.toggle();
+        $('#contactSelectButtons').hide();
         //get chatRoom Name
-        let chatRoomName = chatRoomID
-        //get last item in chat
-        getChats()
-        // $.get("/api/chatStart/" + chatRoomName).then(function (data) {
-        //     chats = data
-        //     console.log(chats)
-
-        //     initializeChatGroups(chats);
-        // });
-
-
+        chatRoomName = chatRoomID
+        location.reload();
     }
 
     //Create new div for these cards to go in
@@ -302,35 +334,108 @@ $(document).ready(function () {
         //function to choose a selection
 
         //--Get Click Events from Card Groups
-        $("#chatGroupCardId").click(function () {
+        let chatGroupCard = $(".chatGroupCardId")
+        chatGroupCard.click(function () {
             console.log("you clicked!")
             room = $(this).attr("chatRoom");
             console.log("The room is: " + room);
-            socket.emit(room);
-            
+            socket.emit("room", room);
+            socket.emit("userMessage", room);
+
         })
 
         contactIdArr = [];
+        
     }
 
+    socket.on('message', function (data) {
+        console.log('incoming message: ', data);
+
+    })
+
+    socket.on('room', function (data) {
+        chatRoomName = data;
+        //get chatinfo
+    })
+    
+    socket.on('userMessage', function(){
+        console.log("this isthe chatroom: " + chatRoomName)
+        $.get("/api/chatStart/" + chatRoomName).then(function (data) {
+            chats = data
+            console.log("Chatroom info fired from socket" + chats)
+            messageStream(chats);
+        });
+    })
+    
+
+    function messageStream(chatdata) {
+
+        console.log("insideMessageStream")
+
+
+        chatMessageArea[0].scrollTop = chatMessageArea[0].scrollHeight;
+        chatMessageArea.empty();
+        thisUserName = "";
+        for (let i = 0; i < chatdata.length; i++) {
+            // userProfileId = chatdata[i].UserProfileId
+            // console.log(chatdata[i].UserProfileId);
+            //     $.get("api/userProfiles/" + userProfileId).then(function (data) {
+            //         thisUserName = data[0].name;
+            //         console.log("User Name: " + thisUserName)
+            //     });
+            if (chatdata[i].message !== null) {
+                let messageDiv = $("<div>");
+                messageDiv.addClass('row');
+                messageDiv.css({
+                    lineHeight: "40px"
+                })
+                let messageTextDiv = $('<div>');
+                messageTextDiv.addClass("col 6");
+                messageTextDiv.attr("id", "messageSender")
+                messageTextDiv.text(chatdata[i].message);
+                let messageTimeDiv = $('<div>');
+                messageTimeDiv.addClass("col 4")
+                messageTimeDiv.attr("id", "messageTime")
+                let messageNameDiv = $('<div>');
+                messageNameDiv.addClass("col 2")
+                messageNameDiv.text(chatdata[i].UserName + ": ");
+                messageTimeDiv.text(moment(chatdata[i].createdAt).fromNow())
+                messageDiv.append(messageNameDiv, messageTextDiv, messageTimeDiv)
+                chatMessageArea.append(messageDiv);
+                chatMessageArea[0].scrollTop = chatMessageArea[0].scrollHeight;
+            }
+            
+        }
+        
+    }
 
     //make card, apply class,add attributes
     //get time of last item in chat and convert to days ago
     //contact card creation
     function createNewChatRow(chat) {
-        let numberOfUsers = chat.chatID.split(", ").length
-        console.log("inside CreateNewRow: chat length" + numberOfUsers)
-        const newChatCard = $("<div>");
-        newChatCard.addClass("card");
-        newChatCard.attr("id", "chatGroupCardId")
-        newChatCard.attr("chatRoom", chat.chatID)
-        const numMembers = $("<div>");
-        numMembers.text(numberOfUsers);
-        const chatName = $('<div>');
-        chatName.addClass("card-title")
-        chatName.text(chat.chatID);
-        newChatCard.append(numMembers, chatName)
-        return newChatCard;
+        if(chat.chatID){
+            console.log("chat before error" + chat.chatID)
+            let numberOfUsers = chat.chatID.split(", ").length
+            console.log("inside CreateNewRow: chat length" + numberOfUsers)
+            const newChatCard = $("<div>");
+            newChatCard.addClass("card chatGroupCardId");
+            const newChatCardBody = $('<div>');
+            newChatCardBody.addClass("card-body");
+            // newChatCard.attr("id", "chatGroupCardId")
+            newChatCard.attr("chatRoom", chat.chatID)
+            const numMembers = $("<div>");
+            numMembers.text(numberOfUsers);
+            const chatName = $('<h6>');
+            chatName.addClass("card-title")
+            chatName.text(chat.chatID);
+            newChatCardBody.append(chatName, numMembers)
+            newChatCard.append(newChatCardBody)
+            
+            return newChatCard;
+        } else {
+            console.log("There was a null value")
+        }
+        
     }
     //Create div for messages to go in
     //add submit button to input
@@ -342,12 +447,12 @@ $(document).ready(function () {
     //chat window clears, and new chat is loaded
 
 
-    getContacts();
+    getUserInfo();
 
-    getChats()
+    getChats();
 
     function getChats() {
-        $.get("/api/chatStart").then(function (data) {
+        $.get("/api/chatStartdistinct/").then(function (data) {
             chats = data
             if (chats) {
                 console.log("Inside Chat Start: " + chats)
@@ -362,21 +467,45 @@ $(document).ready(function () {
     //set up room based on Chat ID name to get chat data by oldest first at the ChatRoom Name by oldest first
 
     //--Get Input from message Text Box
-    $(function(){
-        $('#chatInput').keypress(function(e){
+    $(function () {
+        $('#chatInput').keypress(function (e) {
             if (e.which == 13) {
+                
                 console.log($(this).val())
+                let message = $(this).val()
+                submitMessage(message, thisUser, thisName)
+                $(this).val("");
+                socket.emit("userMessage", room);
             }
         })
     })
 
-    $("#messageSubmit").click(function(){
+   
+
+    $("#messageSubmit").click(function () {
         event.preventDefault();
-       console.log( $('#chatInput').val())
+        socket.emit("userMessage");
+        console.log($('#chatInput').val())
+        let message = $('#chatInput').val()
+        submitMessage(message, thisUser, thisName)
+        $(this).val("");
+        socket.emit("userMessage", room);
     })
 
 
-
+    function submitMessage(message, thisUser, thisName) {
+        console.log("Inside submit message " + thisUser)
+        console.log("Inside submit Message: " + thisName)
+        $.post("/api/chatStart", {
+            chatID: chatRoomName,
+            message: message,
+            UserProfileId: thisUser,
+            UserName: thisName
+        }).then(function (data) {
+            messages = data
+            console.log(messages)
+        });
+    }
 
 });
 
