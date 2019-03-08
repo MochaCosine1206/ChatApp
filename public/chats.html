@@ -14,32 +14,30 @@
 
 </head>
 
-<body>
-    <nav class="navbar navbar-default navbar-light shadow-sm" style="background-color: #9f39fd;">
-        <div class="container-fluid">
-            <div class="navbar-header">
-                <a class="navbar-brand text-light" href="/logout">
-                    Logout
-                </a>
-            </div>
-        </div>
-    </nav>
+<body id="chatsBody">
     
     <div class="row " id="chatRow">
-        <div class="col-md-5 border-right" id="chatgroup">
+        <div class="col-md-4 border-right" id="chatgroup">
             <div class="container-fluid">
-                <span><button type="button" class="btn mr-3 text-light shadow-sm rounded-circle"
-                        style="background-color: #9f39fd;" id="chatbutton"><i class="far fa-comments"></i></button>Start
+                <span id="chatButtonSpan"><button type="button" class="btn mr-1 text-light shadow-sm rounded-circle"
+                        style="background-color: #23cccccc;" id="chatbutton"><i class="far fa-comments"></i></button>Start
                     a
                     Chat</span>
+                    <span><button type="button" class="btn mr-1 text-light shadow-sm rounded-circle"
+                        style="background-color: #23cccccc;" id="logoutButton" onclick="location.href='/logout'"><i class="far fa-comments"></i></button>Log Out</span>
                 <hr>
+                <div id="directDiv">Direct Messages</div>
+                <div id="directWhiteDiv">
+                
                 <div id="chatGroupDiv">Chat List Placeholder, populate contacts based on current user</div>
             </div>
         </div>
-        <div class="col-md-7">
+        </div>
+        <div class="col-md-8">
             <div class="container-fluid">
-
+                <div id="chatStartBack">
                 <div id="chatStart" style="display: none;">
+                    <div><p id="steveP">Select who you want to chat with and hit the submit button</p></div>
 
                     <!-- <h1 id="chatsearchH1">Direct Message</h1>
                 <div class="form-group">
@@ -55,6 +53,7 @@
                     </div>
 
                 </div>
+            </div>
                 <div id="messageArea">
                         <!-- messages will appear here -->
                     </div>
