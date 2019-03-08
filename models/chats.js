@@ -8,6 +8,9 @@ module.exports = function(sequelize, DataTypes) {
       },
         messageTime: {
         type: DataTypes.DATE,
+      },
+      UserProfileId: {
+        type: DataTypes.UUID,
       }
     });
   
