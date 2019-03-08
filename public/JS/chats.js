@@ -96,6 +96,7 @@ $(document).ready(function () {
 
     //Clicking this button opens up the user selection pane
     $("#chatbutton").click(function () {
+        
         chatStart.toggle();
         if($("#contactsCard").is(":visible")){
             console.log("visible")
@@ -284,7 +285,7 @@ $(document).ready(function () {
 
         }
         submitChatGroup(newMessageGroup)
-        setUpChat(contactIdArr, chatRoomID)
+        
         
 
     })
@@ -295,6 +296,7 @@ $(document).ready(function () {
 
     function submitChatGroup(newChatGroup) {
         $.post("api/chatStart", newChatGroup)
+        setUpChat(contactIdArr, chatRoomID)
     }
 
     function setUpChat(contactIdArr, chatRoomID) {
@@ -311,7 +313,7 @@ $(document).ready(function () {
         $('#contactSelectButtons').hide();
         //get chatRoom Name
         chatRoomName = chatRoomID
-        getChats()
+        location.reload();
     }
 
     //Create new div for these cards to go in
@@ -343,6 +345,7 @@ $(document).ready(function () {
         })
 
         contactIdArr = [];
+        
     }
 
     socket.on('message', function (data) {
@@ -380,26 +383,28 @@ $(document).ready(function () {
             //         thisUserName = data[0].name;
             //         console.log("User Name: " + thisUserName)
             //     });
+            if (chatdata[i].message !== null) {
+                let messageDiv = $("<div>");
+                messageDiv.addClass('row');
+                messageDiv.css({
+                    lineHeight: "40px"
+                })
+                let messageTextDiv = $('<div>');
+                messageTextDiv.addClass("col 6");
+                messageTextDiv.attr("id", "messageSender")
+                messageTextDiv.text(chatdata[i].message);
+                let messageTimeDiv = $('<div>');
+                messageTimeDiv.addClass("col 4")
+                messageTimeDiv.attr("id", "messageTime")
+                let messageNameDiv = $('<div>');
+                messageNameDiv.addClass("col 2")
+                messageNameDiv.text(chatdata[i].UserName + ": ");
+                messageTimeDiv.text(moment(chatdata[i].createdAt).fromNow())
+                messageDiv.append(messageNameDiv, messageTextDiv, messageTimeDiv)
+                chatMessageArea.append(messageDiv);
+                chatMessageArea[0].scrollTop = chatMessageArea[0].scrollHeight;
+            }
             
-            let messageDiv = $("<div>");
-            messageDiv.addClass('row');
-            messageDiv.css({
-                lineHeight: "40px"
-            })
-            let messageTextDiv = $('<div>');
-            messageTextDiv.addClass("col 6");
-            messageTextDiv.attr("id", "messageSender")
-            messageTextDiv.text(chatdata[i].message);
-            let messageTimeDiv = $('<div>');
-            messageTimeDiv.addClass("col 4")
-            messageTimeDiv.attr("id", "messageTime")
-            let messageNameDiv = $('<div>');
-            messageNameDiv.addClass("col 2")
-            messageNameDiv.text(chatdata[i].UserName + ": ");
-            messageTimeDiv.text(moment(chatdata[i].createdAt).fromNow())
-            messageDiv.append(messageNameDiv, messageTextDiv, messageTimeDiv)
-            chatMessageArea.append(messageDiv);
-            chatMessageArea[0].scrollTop = chatMessageArea[0].scrollHeight;
         }
         
     }
@@ -423,8 +428,8 @@ $(document).ready(function () {
             const chatName = $('<h6>');
             chatName.addClass("card-title")
             chatName.text(chat.chatID);
-            newChatCard.append(newChatCardBody)
             newChatCardBody.append(chatName, numMembers)
+            newChatCard.append(newChatCardBody)
             
             return newChatCard;
         } else {
