@@ -12,33 +12,24 @@
   <link rel="stylesheet" href="https://use.typekit.net/bqo2zdq.css">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-
-
-
-
 </head>
 
 <body>
-    <div class="row">
-        <div class="col-12 col-md-6 order-1 order-md-2" id="rightpane" style="background-color: #99d9eb;">
-            <img src="images/Catfish1.svg" id="catfishLogo">
-          </div>
-      <div class="col-12 col-md-6 order-1 order-md-1" id='leftpane'>
-        
-        <div class= "centered">
+    <div class="row justify-content-center">
+      <div class="col-12" id='leftpane'>
+        <div class="container">
         <h1>CATFISH</h1>
-        <h2>Take a leap into the unknown...with Catfish</h2>
-
+        <img src="images/Catfish1grey.svg" id="homefish">
+        <!-- <h2>Take a leap into the unknown...with Catfish</h2>
         <ul>
-          
           <li>Describe yourself in 7 words</li>
           <li>With encrypted messaging</li>
           <li>Customizable anonymous avatars</li>
-        </ul>
-
-
-        <p>Sign up <a href="/signup"style="color:yellow">here</a>
-           or log in <a href="/login"style="color:yellow">here</a></p>
+        </ul> -->
+        <div class="row justify-content-center">
+        <button type="button" class="btn btn-primary btn-lg rounded-pill shadow-lg" id="homebuttons" onclick="location.href='/signup'"><span id="buttonSpanText">Sign Up</span></button>
+        <button type="button" class="btn btn-primary btn-lg rounded-pill shadow-lg" id="homebuttons"  onclick="location.href='/login'"><span id="buttonSpanText">Log In</span></button>
+        </div>
       </div>
       </div>
       

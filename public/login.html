@@ -1,20 +1,27 @@
 <!DOCTYPE html>
-<html  lang="en">
+<html lang="en">
 
 <head>
   <title>Log In</title>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
-  integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
   <link rel="stylesheet" href="https://use.typekit.net/bqo2zdq.css">
   <link href="stylesheets/style.css" rel="stylesheet">
 </head>
 
-<body id="grad"> 
+<body>
   <div class="row">
-    <div class="col-12 col-md-6 order-1 order-md-1" id="loginleftpane">
-        <h1 class="title">LOG IN</h1>
+    <div class="col-12" id="loginleftpane">
+
+      <div class="container">
+        <div class="row">
+          <h1 id="signup-header">LOG IN</h1>
+        </div>
+
+        <div class="row justify-content-left">
+          <div class="container">
         <form class="login">
           <div class="form-group">
             <label for="exampleInputEmail1">Email address</label>
@@ -28,19 +35,19 @@
             <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
             <span class="sr-only">Error:</span> <span class="msg"></span>
           </div>
-          <button id="login-submit" type="submit" class="btn btn-dark">Log In</button>
-          <br>
+          <button id="login-submit" type="submit" class="btn btn-primary btn-lg rounded-pill shadow-lg">Log In</button>
         </form>
-
-
-  <p id="sulinks"> or <a href="/signup"style="color:yellow">Sign up</a>
-    </p>
-    </div>
-
-    <div class="col-12 col-md-6 order-1 order-md-2" id="loginrightpane">
-        <img src="images/Catfish1grey.svg" id="catfishLogo">
       </div>
-  </div> 
+    </div>
+    <div class="row">
+      <div class="container">
+        <p> or <a href="/signup" style="color:#4cccef">Sign up</a>
+        </div>
+        </div>
+        </p>
+      </div>
+    </div>
+  </div>
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
   <script type="text/javascript" src="JS/login.js"></script>
