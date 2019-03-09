@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title>Profile Entry</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+    integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://use.typekit.net/bqo2zdq.css">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css"
+    integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+
+
+  <link href="stylesheets/style.css" rel="stylesheet">
+
+</head>
+
+<body>
+  <div id="userpBackground">
+
+
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-md-6">
+
+          <h2 id="userptitle">Welcome ...<span class="member-name"></span>. Please fill out additional info below</h2>
+
+      <!-- need profile page div here   -->
+
+      <form id="userInfo">
+        
+          
+            <div class="form-group">
+              <label for="name">Name</label>
+              <span id="nameInvalid" style="color: red"> - Can't Begin Or End With A Space </span>
+              <input type="name" class="form-control" id="name" placeholder="Joe Blow" required>
+              <label for="userName">User Name</label>
+              <span id="userNameInvalid" style="color: red"> - Must Be 3-15 Characters Long </span>
+              <input type="username" class="form-control" id="userName" placeholder="i.e. moneygrabber53" required>
+              <label for="userAboutMe">About Me</label>
+              <span id="aboutInvalid" style="color: red"> - Must Be 7 Words </span>
+              <input type="userAboutMe" class="form-control" id="userAboutMe"
+                placeholder="Write a few words about yourself here..." required>
+
+            </div>
+          
+      
+    </div>
+      <div class="col-md-6 align-self-center">
+        <div class="card shadow-lg mt-5">
+          <div class="card-body">
+            <div class="card-title">Your Random Avatar Image</h5>
+            </div>
+            <img class="card-img-top" id="avatarImg" style="height: 200px;">
+          </div>
+          <div class="row justify-content-center">
+            <a class="previous"><i class="far fa-arrow-alt-circle-left"></i></a>
+            <a class="next"><i class="far fa-arrow-alt-circle-right"></i></a>
+          </div>
+          </div>
+          
+        </div>
+      </div>
+      <div class="row">
+          <button id="userprofile-submit" type="submit" class="btn btn-primary ml-3 mt-3">Submit</button>
+      </div>
+    </form>
+
+    </div>
+
+  </div>
+
+
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script type="text/javascript" src="JS/members.js"></script>
+  <script type="text/javascript" src="JS/userprofile.js"></script>
+
+
+
+</body>
+
+</html>

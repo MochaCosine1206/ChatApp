@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Chat Window</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css"
+        integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+        
+    <link href="stylesheets/style.css" rel="stylesheet">
+
+</head>
+
+<body id="chatsBody">
+    
+    <div class="row " id="chatRow">
+        <div class="col-md-4 border-right" id="chatgroup">
+            <div class="container-fluid">
+                <span id="chatButtonSpan"><button type="button" class="btn mr-1 text-light shadow-sm rounded-circle"
+                        style="background-color: #23cccccc;" id="chatbutton"><i class="far fa-comments"></i></button>Start
+                    a
+                    Chat</span>
+                    <span><button type="button" class="btn mr-1 text-light shadow-sm rounded-circle"
+                        style="background-color: #23cccccc;" id="logoutButton" onclick="location.href='/logout'"><i class="fas fa-sign-out-alt"></i></button>Log Out</span>
+                <hr>
+                <div id="directDiv">Direct Messages, select below before typing:</div>
+                <div id="directWhiteDiv">
+                
+                <div id="chatGroupDiv">Chat List Placeholder, populate contacts based on current user</div>
+            </div>
+        </div>
+        </div>
+        <div class="col-md-8">
+            <div class="container-fluid">
+                <div id="chatStartBack">
+                <div id="chatStart" style="display: none;">
+                    <div><p id="steveP">Select who you want to chat with and hit the submit button</p></div>
+
+                    <!-- <h1 id="chatsearchH1">Direct Message</h1>
+                <div class="form-group">
+                    <input type="search" class="form-control" id="contactSearch" aria-describedby="searchHelp" placeholder="Find or Start a Message">
+                  </div> -->
+
+                    <div id="contactSelectButtons">
+                        <!-- contacts that are selected will populate here -->
+                        <input class="btn btn-primary" type="submit" value="Submit" id="chatSelectButton">
+                    </div>
+                    <div id="contactsCard">
+                        <!--Contact divs will populate here -->
+                    </div>
+
+                </div>
+            </div>
+                <div id="messageArea">
+                    
+                        <!-- messages will appear here -->
+                    </div>
+                    
+                <form id="chatInputForm">
+                    <textarea class="form-control justify-content-end" rows="3" placeholder="Chat Input"
+                        id="chatInput"></textarea>
+                    <button type="submit" class="btn btn-primary mb-2" id="messageSubmit">Submit</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script type="text/javascript" src="JS/chats.js"></script>
+    <script src="/socket.io/socket.io.js"></script>
+
+
+</body>
+
+</html>

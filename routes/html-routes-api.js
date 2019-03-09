@@ -9,7 +9,15 @@ module.exports = function(app) {
   app.get("/", function(req, res) {
     // If the user already has an account send them to the members page
     if (req.user) {
-      res.redirect("/members");
+      res.redirect("/chats");
+    }
+    res.sendFile(path.join(__dirname, "../public/home.html"));
+  });
+
+  app.get("/signup", function(req, res) {
+    // If the user already has an account send them to the members page
+    if (req.user) {
+      res.redirect("/chats");
     }
     res.sendFile(path.join(__dirname, "../public/signup.html"));
   });
@@ -17,15 +25,23 @@ module.exports = function(app) {
   app.get("/login", function(req, res) {
     // If the user already has an account send them to the members page
     if (req.user) {
-      res.redirect("/members");
+      res.redirect("/chats");
     }
     res.sendFile(path.join(__dirname, "../public/login.html"));
   });
 
   // Here we've add our isAuthenticated middleware to this route.
   // If a user who is not logged in tries to access this route they will be redirected to the signup page
-  app.get("/members", isAuthenticated, function(req, res) {
-    res.sendFile(path.join(__dirname, "../public/members.html"));
+  app.get("/userprofile", function(req, res) {
+    res.sendFile(path.join(__dirname, "../public/userprofile.html"));
+  });
+
+  app.get("/chats", function(req, res) {
+    res.sendFile(path.join(__dirname, "../public/chats.html"));
+  });
+
+  app.get("/contacts", function(req, res) {
+    res.sendFile(path.join(__dirname, "../public/contacts.html"));
   });
 
 };
