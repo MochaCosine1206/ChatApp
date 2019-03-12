@@ -26,7 +26,7 @@ module.exports = function (io) {
         socket.on('userMessage', function(room){
             room=room
             console.log("The room is (user message): "+ room)
-            io.sockets.in(room).emit('userMessage');
+            socket.emit('userMessage', room);
         })
 
         socket.on('initializeChatGroupsDiv', function(room){
