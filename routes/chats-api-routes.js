@@ -1,5 +1,6 @@
 var db = require("../models");
 
+
 module.exports = function(app) {
     app.post("/api/chatStart", function(req, res){
         db.Chats.create(req.body).then(function(dbChats){
@@ -30,7 +31,10 @@ module.exports = function(app) {
     })
 
     app.get("/api/chatStartdistinct/", function(req, res){
-        db.Chats.findAll({group: ['ChatID']}).then(function (data) {
+        db.Chats.findAll({
+            group: ['ChatID'], 
+            order: [['createdAt', 'DESC']]
+        }).then(function (data) {
             console.log("inside distinct call " + data)
             res.json(data);
           });

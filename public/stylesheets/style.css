@@ -357,7 +357,7 @@ br {
 
 #chatGroupDiv {
   overflow-y: scroll;
-  max-height: 70vh;
+  max-height: 338px;
   color: black;
 }
 
@@ -411,7 +411,7 @@ br {
 
 #messageArea {
   margin-top: 1%;
-  margin-bottom: 1%;
+  margin-bottom: 16%;
   max-height: 400px;
   background-color: white;
   border-radius: 5px;
@@ -526,7 +526,7 @@ a {
 
 @media only screen and (max-width: 767px) {
   #chatRow {
-    height: 90vh;
+    height: 146vh;
   }
   #chatgroup {
     margin-top: 10px;

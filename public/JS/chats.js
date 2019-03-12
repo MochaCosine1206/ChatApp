@@ -37,17 +37,6 @@ $(document).ready(function () {
 
 
 
-    // socket.on('connect', function () {
-    //     userSocketID = socket.id;
-    //     console.log("Your Socket ID is " + userSocketID);
-    // })
-
-    // socket.on('disconnect', function(reason){
-    //     userSocketID = null;
-    //     console.log("Socket Disconnected: " + reason);
-    //     setUserStatus(userSocketID, currentUser)
-    // })
-
     function setCurrentProfileUser() {
 
         $.get("api/userProfiles/" + currentUser).then(function (data) {
@@ -68,33 +57,6 @@ $(document).ready(function () {
         });
     }
 
-
-
-    // function setUserStatus(userSocketID, currentUser) {
-    //     if (!userSocketID) {
-    //         let userStatusData = {
-    //             UserId: currentUser,
-    //             status: false,
-    //             socketID: userSocketID
-    //         }
-    //         updateProfileStatus(userStatusData)
-    //     } else {
-    //         let userStatusData = {
-    //             UserId: currentUser,
-    //             status: true,
-    //             socketID: userSocketID
-    //         }
-    //         updateProfileStatus(userStatusData)
-    //     }
-    // }
-
-    // function updateProfileStatus(userStatusData) {
-    //     $.ajax({
-    //         method: "PUT",
-    //         url: "/api/userProfiles",
-    //         data: userStatusData
-    //     })
-    // }
 
 
 
@@ -325,11 +287,13 @@ $(document).ready(function () {
         //clear selection div
         contactsCard.empty();
         contactsToAdd = [];
-        chatStart.toggle();
-        $('#contactSelectButtons').hide();
+        chatStart.hide();
+        $("#chatStartBack").hide();
+        $('#contactSelectButtons').empty();
         //get chatRoom Name
         chatRoomName = chatRoomID
-        location.reload();
+        socket.emit("initializeChatGroupsDiv", chatRoomName);
+        // location.reload();
     }
 
     //Create new div for these cards to go in
@@ -341,42 +305,57 @@ $(document).ready(function () {
         let chatgroupsToAdd = [];
         $.get("api/userProfiles/" + currentUser).then(function (data) {
             thisName = data[0].name;
-                for (var i = 0; i < chats.length; i++) {
-                    if(chats[i].chatID !== null) {
-                        if (chats[i].chatID.indexOf(thisName) >=0 ) {
-                            //if this name is in the chatID, do not create card
-                            //push data to create dev for each item
-                            chatgroupsToAdd.push(createNewChatRow(chats[i]));
-                            console.log(chats[i]);
-                            console.log(chatgroupsToAdd);
-                        }
-                        chatGroupArea.append(chatgroupsToAdd);
+            for (var i = 0; i < chats.length; i++) {
+                if (chats[i].chatID !== null) {
+                    if (chats[i].chatID.indexOf(thisName) >= 0) {
+                        //if this name is not in the chatID, do not create card
+                        //push data to create dev for each item
+                        chatgroupsToAdd.push(createNewChatRow(chats[i]));
+                        console.log(chats[i]);
+                        console.log(chatgroupsToAdd);
                     }
+                    chatGroupArea.append(chatgroupsToAdd);
+                }
 
             }
-       
 
-        let chatGroupCard = $(".chatGroupCardId")
-        chatGroupCard.click(function () {
-            console.log("you clicked!")
-            room = $(this).attr("chatRoom");
-            console.log("The room is: " + room);
-            socket.emit("room", room);
-            socket.emit("userMessage", room);
 
-        })
-        console.log(contactNameArr);
-        contactIdArr = [];
+            let chatGroupCard = $(".chatGroupCardId")
+            chatGroupCard.click(function () {
+                console.log("you clicked!")
+                $(this).css({
+                    backgroundColor: "lightblue"
+                });
+                $(chatGroupCard).not($(this)).css({
+                    backgroundColor: "white"
+                })
+                room = $(this).attr("chatRoom");
+                console.log("The room is: " + room);
+                socket.emit("room", room);
+                socket.emit("userMessage", room);
 
-    });
+            })
+            console.log(contactNameArr);
+            contactIdArr = [];
+
+        });
         //append the created items to main div
-        
+
         //function to choose a selection
 
         //--Get Click Events from Card Groups
-        
+
 
     }
+
+    socket.on('initializeChatGroupsDiv', function (data) {
+        console.log("onitialize: " + data)
+        setCurrentProfileUser();
+        getChats();
+        socket.emit("room", data);
+        socket.emit("userMessage", data);
+
+    })
 
     socket.on('message', function (data) {
         console.log('incoming message: ', data);
@@ -475,6 +454,12 @@ $(document).ready(function () {
             const chatName = $('<h6>');
             chatName.addClass("card-title")
             chatName.text(chat.chatID);
+            //ID the new card by changing the CSS color of the card where the chatID === what was selected
+            if (chat.chatID === chatRoomName){
+                newChatCard.css({
+                    backgroundColor: "lightBlue"
+                })
+            }
             newChatCardBody2.append(numMembers)
             newChatCardRowCol1.append(newChatCardBody2);
             newChatCardBody.append(chatName);
@@ -536,7 +521,7 @@ $(document).ready(function () {
             console.log($('#chatInput').val())
             let message = $('#chatInput').val()
             submitMessage(message, thisUser, thisName)
-            
+
             socket.emit("userMessage", room);
             $("#chatInput").val("");
         })
@@ -544,7 +529,7 @@ $(document).ready(function () {
 
 
 
-    
+
 
 
     function submitMessage(message, thisUser, thisName) {
