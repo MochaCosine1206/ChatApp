@@ -31,7 +31,7 @@ module.exports = function (io) {
 
         socket.on('initializeChatGroupsDiv', function(room){
             console.log("in initialize chats socket")
-            io.emit('initializeChatGroupsDiv', room)
+            socket.emit('initializeChatGroupsDiv', room)
         })
     })
     
